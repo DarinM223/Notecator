@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "DMLoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -14,10 +18,32 @@
 
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Keys" ofType:@"plist"];
+    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+    
+    [Parse setApplicationId:[dict objectForKey:@"parseApplicationId"] clientKey:[dict objectForKey:@"parseClientKey"]];
+    [PFFacebookUtils initializeFacebook];
+    
+    DMLoginViewController *lvc = [[DMLoginViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:lvc];
+    
+    self.window.rootViewController = nvc;
+    [self.window makeKeyAndVisible];
+
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -36,6 +62,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
