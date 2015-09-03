@@ -6,10 +6,13 @@
 //  Copyright (c) 2015 com.d_m. All rights reserved.
 //
 
-#import "DMLoginViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+
+#import "DMLoginViewController.h"
+#import "DMNotesMapViewController.h"
+#import "DMNotesTableViewController.h"
 
 @interface DMLoginViewController ()
 
@@ -32,6 +35,11 @@
 
 - (IBAction)onFacebookLoginClicked:(id)sender {
     NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships" ];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    DMNotesMapViewController *notesMapViewController = [[DMNotesMapViewController alloc] init];
+    DMNotesTableViewController *notesTableViewController = [[DMNotesTableViewController alloc] init];
+    tabBarController.viewControllers = @[ notesTableViewController, notesMapViewController ];
     
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         NSLog(@"Finished log in!");
@@ -57,8 +65,8 @@
                 [[[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
             }
         } else {
-            [[[UIAlertView alloc] initWithTitle:@"Logged in!" message:[NSString stringWithFormat:@"Logged in as: %@", user.username] delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
-            NSLog([NSString stringWithFormat:@"Logged in as: %@", user.username]);
+            // Push tab bar controller into the navigation stack
+            [self.navigationController setViewControllers:@[tabBarController] animated:YES];
         }
     }];
 }

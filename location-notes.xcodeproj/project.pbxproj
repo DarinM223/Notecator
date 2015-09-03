@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8BE427F3504211C26ED4ADC1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 494EDC9D5DF839B7D52A25DB /* libPods.a */; };
+		9358717D1B9771AA004F0889 /* DMNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9358717C1B9771AA004F0889 /* DMNotesTableViewController.m */; };
+		935A7AF01B985B77003AB0D8 /* DMNotesMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935A7AEF1B985B77003AB0D8 /* DMNotesMapViewController.m */; };
 		93E435AC1B957D6A00927656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AB1B957D6A00927656 /* main.m */; };
 		93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AE1B957D6A00927656 /* AppDelegate.m */; };
 		93E435B71B957D6A00927656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E435B61B957D6A00927656 /* Images.xcassets */; };
@@ -30,6 +32,10 @@
 
 /* Begin PBXFileReference section */
 		494EDC9D5DF839B7D52A25DB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9358717B1B9771AA004F0889 /* DMNotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNotesTableViewController.h; sourceTree = "<group>"; };
+		9358717C1B9771AA004F0889 /* DMNotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNotesTableViewController.m; sourceTree = "<group>"; };
+		935A7AEE1B985B77003AB0D8 /* DMNotesMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNotesMapViewController.h; sourceTree = "<group>"; };
+		935A7AEF1B985B77003AB0D8 /* DMNotesMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNotesMapViewController.m; sourceTree = "<group>"; };
 		93E435A61B957D6A00927656 /* location-notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "location-notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E435AA1B957D6A00927656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E435AB1B957D6A00927656 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -98,7 +104,6 @@
 		93E435A81B957D6A00927656 /* location-notes */ = {
 			isa = PBXGroup;
 			children = (
-				93E435D11B957F0E00927656 /* Views */,
 				93E435D01B957EF200927656 /* Models */,
 				93E435CF1B957EDD00927656 /* Controllers */,
 				93E435AD1B957D6A00927656 /* AppDelegate.h */,
@@ -143,6 +148,10 @@
 			children = (
 				93E435D51B9594E800927656 /* DMLoginViewController.h */,
 				93E435D61B9594E800927656 /* DMLoginViewController.m */,
+				9358717B1B9771AA004F0889 /* DMNotesTableViewController.h */,
+				9358717C1B9771AA004F0889 /* DMNotesTableViewController.m */,
+				935A7AEE1B985B77003AB0D8 /* DMNotesMapViewController.h */,
+				935A7AEF1B985B77003AB0D8 /* DMNotesMapViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -152,13 +161,6 @@
 			children = (
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		93E435D11B957F0E00927656 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Views;
 			sourceTree = "<group>";
 		};
 		96DCB68C07ED3451F90248CB /* Pods */ = {
@@ -306,6 +308,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935A7AF01B985B77003AB0D8 /* DMNotesMapViewController.m in Sources */,
+				9358717D1B9771AA004F0889 /* DMNotesTableViewController.m in Sources */,
 				93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */,
 				93E435AC1B957D6A00927656 /* main.m in Sources */,
 				93E435D81B9594E800927656 /* DMLoginViewController.m in Sources */,
