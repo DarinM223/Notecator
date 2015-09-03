@@ -10,6 +10,10 @@
 		8BE427F3504211C26ED4ADC1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 494EDC9D5DF839B7D52A25DB /* libPods.a */; };
 		9358717D1B9771AA004F0889 /* DMNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9358717C1B9771AA004F0889 /* DMNotesTableViewController.m */; };
 		935A7AF01B985B77003AB0D8 /* DMNotesMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935A7AEF1B985B77003AB0D8 /* DMNotesMapViewController.m */; };
+		93891D0D1B98F2C800D3CE64 /* DMAddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93891D0B1B98F2C800D3CE64 /* DMAddNoteViewController.m */; };
+		93891D0E1B98F2C800D3CE64 /* DMAddNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93891D0C1B98F2C800D3CE64 /* DMAddNoteViewController.xib */; };
+		93891D141B990C7100D3CE64 /* DMNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93891D121B990C7100D3CE64 /* DMNoteTableViewCell.m */; };
+		93891D151B990C7100D3CE64 /* DMNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93891D131B990C7100D3CE64 /* DMNoteTableViewCell.xib */; };
 		93E435AC1B957D6A00927656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AB1B957D6A00927656 /* main.m */; };
 		93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AE1B957D6A00927656 /* AppDelegate.m */; };
 		93E435B71B957D6A00927656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E435B61B957D6A00927656 /* Images.xcassets */; };
@@ -36,6 +40,12 @@
 		9358717C1B9771AA004F0889 /* DMNotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNotesTableViewController.m; sourceTree = "<group>"; };
 		935A7AEE1B985B77003AB0D8 /* DMNotesMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNotesMapViewController.h; sourceTree = "<group>"; };
 		935A7AEF1B985B77003AB0D8 /* DMNotesMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNotesMapViewController.m; sourceTree = "<group>"; };
+		93891D0A1B98F2C800D3CE64 /* DMAddNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAddNoteViewController.h; sourceTree = "<group>"; };
+		93891D0B1B98F2C800D3CE64 /* DMAddNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAddNoteViewController.m; sourceTree = "<group>"; };
+		93891D0C1B98F2C800D3CE64 /* DMAddNoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMAddNoteViewController.xib; sourceTree = "<group>"; };
+		93891D111B990C7100D3CE64 /* DMNoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNoteTableViewCell.h; sourceTree = "<group>"; };
+		93891D121B990C7100D3CE64 /* DMNoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNoteTableViewCell.m; sourceTree = "<group>"; };
+		93891D131B990C7100D3CE64 /* DMNoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMNoteTableViewCell.xib; sourceTree = "<group>"; };
 		93E435A61B957D6A00927656 /* location-notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "location-notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E435AA1B957D6A00927656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E435AB1B957D6A00927656 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -81,6 +91,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		93891D0F1B990C4800D3CE64 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				93891D101B990C5200D3CE64 /* Cells */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		93891D101B990C5200D3CE64 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				93891D111B990C7100D3CE64 /* DMNoteTableViewCell.h */,
+				93891D121B990C7100D3CE64 /* DMNoteTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		93E4359D1B957D6900927656 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +131,7 @@
 		93E435A81B957D6A00927656 /* location-notes */ = {
 			isa = PBXGroup;
 			children = (
+				93891D0F1B990C4800D3CE64 /* Views */,
 				93E435D01B957EF200927656 /* Models */,
 				93E435CF1B957EDD00927656 /* Controllers */,
 				93E435AD1B957D6A00927656 /* AppDelegate.h */,
@@ -118,6 +146,8 @@
 		93E435A91B957D6A00927656 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				93891D131B990C7100D3CE64 /* DMNoteTableViewCell.xib */,
+				93891D0C1B98F2C800D3CE64 /* DMAddNoteViewController.xib */,
 				93E435D71B9594E800927656 /* DMLoginViewController.xib */,
 				93E435AA1B957D6A00927656 /* Info.plist */,
 				93E435AB1B957D6A00927656 /* main.m */,
@@ -152,6 +182,8 @@
 				9358717C1B9771AA004F0889 /* DMNotesTableViewController.m */,
 				935A7AEE1B985B77003AB0D8 /* DMNotesMapViewController.h */,
 				935A7AEF1B985B77003AB0D8 /* DMNotesMapViewController.m */,
+				93891D0A1B98F2C800D3CE64 /* DMAddNoteViewController.h */,
+				93891D0B1B98F2C800D3CE64 /* DMAddNoteViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -254,8 +286,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93891D151B990C7100D3CE64 /* DMNoteTableViewCell.xib in Resources */,
 				93E435DD1B95A65F00927656 /* Keys.plist in Resources */,
 				93E435BA1B957D6A00927656 /* LaunchScreen.xib in Resources */,
+				93891D0E1B98F2C800D3CE64 /* DMAddNoteViewController.xib in Resources */,
 				93E435B71B957D6A00927656 /* Images.xcassets in Resources */,
 				93E435D91B9594E800927656 /* DMLoginViewController.xib in Resources */,
 			);
@@ -310,9 +344,11 @@
 			files = (
 				935A7AF01B985B77003AB0D8 /* DMNotesMapViewController.m in Sources */,
 				9358717D1B9771AA004F0889 /* DMNotesTableViewController.m in Sources */,
+				93891D141B990C7100D3CE64 /* DMNoteTableViewCell.m in Sources */,
 				93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */,
 				93E435AC1B957D6A00927656 /* main.m in Sources */,
 				93E435D81B9594E800927656 /* DMLoginViewController.m in Sources */,
+				93891D0D1B98F2C800D3CE64 /* DMAddNoteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -65,7 +65,7 @@
                 [[[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
             }
         } else {
-            // Push tab bar controller into the navigation stack
+            // Overwrite navigation stack with the tab bar controller
             [self.navigationController setViewControllers:@[tabBarController] animated:YES];
         }
     }];
