@@ -14,6 +14,7 @@
 		93891D0E1B98F2C800D3CE64 /* DMAddNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93891D0C1B98F2C800D3CE64 /* DMAddNoteViewController.xib */; };
 		93891D141B990C7100D3CE64 /* DMNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93891D121B990C7100D3CE64 /* DMNoteTableViewCell.m */; };
 		93891D151B990C7100D3CE64 /* DMNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93891D131B990C7100D3CE64 /* DMNoteTableViewCell.xib */; };
+		93891D171B99289700D3CE64 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93891D161B99289700D3CE64 /* MapKit.framework */; };
 		93E435AC1B957D6A00927656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AB1B957D6A00927656 /* main.m */; };
 		93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AE1B957D6A00927656 /* AppDelegate.m */; };
 		93E435B71B957D6A00927656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E435B61B957D6A00927656 /* Images.xcassets */; };
@@ -46,6 +47,7 @@
 		93891D111B990C7100D3CE64 /* DMNoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNoteTableViewCell.h; sourceTree = "<group>"; };
 		93891D121B990C7100D3CE64 /* DMNoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNoteTableViewCell.m; sourceTree = "<group>"; };
 		93891D131B990C7100D3CE64 /* DMNoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMNoteTableViewCell.xib; sourceTree = "<group>"; };
+		93891D161B99289700D3CE64 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93E435A61B957D6A00927656 /* location-notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "location-notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E435AA1B957D6A00927656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E435AB1B957D6A00927656 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93891D171B99289700D3CE64 /* MapKit.framework in Frameworks */,
 				8BE427F3504211C26ED4ADC1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,6 +89,7 @@
 		4C64741B9C05BA38240EFA25 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93891D161B99289700D3CE64 /* MapKit.framework */,
 				494EDC9D5DF839B7D52A25DB /* libPods.a */,
 			);
 			name = Frameworks;
