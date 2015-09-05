@@ -8,6 +8,7 @@
 
 #import <Parse/Parse.h>
 #import "DMAddNoteViewController.h"
+#import "DMImageCollectionViewController.h"
 
 @interface DMAddNoteViewController () {
     NSString *noNoteText;
@@ -70,7 +71,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Gesture Recognizer Actions
+#pragma mark -
+#pragma mark Gesture Recognizer Actions
 
 - (IBAction)onTapInTextField:(id)sender {
     if ([self.noteText.text isEqualToString:noNoteText]) {
@@ -86,17 +88,20 @@
     [self.noteText resignFirstResponder];
 }
 
-#pragma mark - Interface Builder Actions
+#pragma mark -
+#pragma mark Interface Builder Actions
 
 - (IBAction)imagesClicked:(id)sender {
-    NSLog(@"Images clicked!");
+    DMImageCollectionViewController *imageCollectionController = [[DMImageCollectionViewController alloc] initWithNote:self.note];
+    [self.navigationController pushViewController:imageCollectionController animated:YES];
 }
 
 - (IBAction)locationClicked:(id)sender {
     NSLog(@"Location clicked!");
 }
 
-#pragma mark - Bar Button Actions
+#pragma mark -
+#pragma mark Bar Button Actions
 
 - (IBAction)cancelNote:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

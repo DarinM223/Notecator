@@ -31,15 +31,11 @@
 
 }
 
-#pragma mark - Interface Builder Actions
+#pragma mark -
+#pragma mark Interface Builder Actions
 
 - (IBAction)onFacebookLoginClicked:(id)sender {
     NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships" ];
-    
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    DMNotesMapViewController *notesMapViewController = [[DMNotesMapViewController alloc] init];
-    DMNotesTableViewController *notesTableViewController = [[DMNotesTableViewController alloc] init];
-    tabBarController.viewControllers = @[ notesTableViewController, notesMapViewController ];
     
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         NSLog(@"Finished log in!");
@@ -65,6 +61,11 @@
                 [[[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
             }
         } else {
+            UITabBarController *tabBarController = [[UITabBarController alloc] init];
+            DMNotesMapViewController *notesMapViewController = [[DMNotesMapViewController alloc] init];
+            DMNotesTableViewController *notesTableViewController = [[DMNotesTableViewController alloc] initWithClassName:@"Note"];
+            tabBarController.viewControllers = @[ notesTableViewController, notesMapViewController ];
+            
             // Overwrite navigation stack with the tab bar controller
             [self.navigationController setViewControllers:@[tabBarController] animated:YES];
         }

@@ -21,6 +21,14 @@
 
 static NSString * const reuseIdentifier = @"ImageCell";
 
+- (instancetype)initWithNote:(PFObject *)note {
+    self = [super init];
+    if (self) {
+        self.note = note;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -74,6 +82,7 @@ static NSString * const reuseIdentifier = @"ImageCell";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
