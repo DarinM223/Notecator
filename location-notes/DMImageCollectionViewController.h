@@ -12,8 +12,6 @@
 
 @interface DMImageCollectionViewController : UICollectionViewController
 
-- (instancetype)initWithNote:(PFObject *)note;
-
 @property (nonatomic, strong) PFObject *note;
 
 @end

@@ -92,7 +92,14 @@
 #pragma mark Interface Builder Actions
 
 - (IBAction)imagesClicked:(id)sender {
-    DMImageCollectionViewController *imageCollectionController = [[DMImageCollectionViewController alloc] initWithNote:self.note];
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setItemSize:CGSizeMake(191, 160)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    flowLayout.minimumInteritemSpacing = 0.0f;
+    
+    DMImageCollectionViewController *imageCollectionController = [[DMImageCollectionViewController alloc] initWithCollectionViewLayout:flowLayout];
+    imageCollectionController.note = self.note;
     [self.navigationController pushViewController:imageCollectionController animated:YES];
 }
 

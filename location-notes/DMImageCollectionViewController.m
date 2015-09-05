@@ -21,14 +21,6 @@
 
 static NSString * const reuseIdentifier = @"ImageCell";
 
-- (instancetype)initWithNote:(PFObject *)note {
-    self = [super init];
-    if (self) {
-        self.note = note;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -36,6 +28,9 @@ static NSString * const reuseIdentifier = @"ImageCell";
     [self.collectionView registerClass:[DMImageCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
+    
+    UIBarButtonItem *addImageButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addImage:)];
+    self.navigationItem.rightBarButtonItem = addImageButton;
     
     // Load images from note
     PFQuery *query = [PFQuery queryWithClassName:@"Image"];
@@ -49,7 +44,7 @@ static NSString * const reuseIdentifier = @"ImageCell";
                 // Encapsulate the integer i into a function scope
                 void (^wrappedFunction)(long) = ^void(long imageIndex) {
                     [imageDownloadPromises addObject:[PMKPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-                        PFObject *imageObject = self.noteImages[imageIndex];
+                        PFObject *imageObject = results[imageIndex];
                         PFFile *imageFile = [imageObject objectForKey:@"image"];
                         
                         [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -66,9 +61,17 @@ static NSString * const reuseIdentifier = @"ImageCell";
             }
             
             // Reload image collection cells after downloading images
-            PMKWhen(imageDownloadPromises).then(^(NSArray *results) {
-                self.noteImages = results;
-                [self.collectionView reloadData];
+            PMKJoin(imageDownloadPromises).then(^(NSArray *results, NSArray *values, NSArray *errors) {
+                if (errors.count == 0) {
+                    self.noteImages = values;
+                    [self.collectionView reloadData];
+                } else {
+                    for (NSInteger i = 0; i < errors.count; i++) {
+                        NSLog(@"Error: %@", [[errors objectAtIndex:i] description]);
+                    }
+                }
+            }).catch(^(NSError *error) {
+                NSLog(@"Error: %@", error.description);
             });
         } else {
             UIAlertView *errAlert = [[UIAlertView alloc] initWithTitle:@"Loading Error" message:@"There was an error loading images" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
@@ -104,6 +107,14 @@ static NSString * const reuseIdentifier = @"ImageCell";
     UIImage *image = self.noteImages[indexPath.row];
     cell.imageView.image = image;
     return cell;
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)addImage:(id)sender {
+    UIAlertView *imageAlert = [[UIAlertView alloc] initWithTitle:@"Image" message:@"Adding image" delegate:nil cancelButtonTitle:@"Dismiss"otherButtonTitles:nil];
+    [imageAlert show];
 }
 
 #pragma mark <UICollectionViewDelegate>
