@@ -70,7 +70,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Actions
+#pragma mark - Gesture Recognizer Actions
 
 - (IBAction)onTapInTextField:(id)sender {
     if ([self.noteText.text isEqualToString:noNoteText]) {
@@ -85,6 +85,18 @@
     }
     [self.noteText resignFirstResponder];
 }
+
+#pragma mark - Interface Builder Actions
+
+- (IBAction)imagesClicked:(id)sender {
+    NSLog(@"Images clicked!");
+}
+
+- (IBAction)locationClicked:(id)sender {
+    NSLog(@"Location clicked!");
+}
+
+#pragma mark - Bar Button Actions
 
 - (IBAction)cancelNote:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
