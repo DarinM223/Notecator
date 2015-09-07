@@ -10,10 +10,12 @@
 #import <PromiseKit/PromiseKit.h>
 #import "DMImageCollectionViewController.h"
 #import "DMImageCollectionViewCell.h"
+#include "ImageStore.h"
 
-@interface DMImageCollectionViewController ()
+@interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UIPopoverControllerDelegate, ImageStoreDelegate>
 
-@property (nonatomic, strong) NSArray *noteImages;
+@property (nonatomic, strong) ImageStore *imageStore;
+@property (nonatomic, strong) UIPopoverController *imagePickerPopover;
 
 @end
 
@@ -31,53 +33,10 @@ static NSString * const reuseIdentifier = @"ImageCell";
     
     UIBarButtonItem *addImageButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addImage:)];
     self.navigationItem.rightBarButtonItem = addImageButton;
-    
-    // Load images from note
-    PFQuery *query = [PFQuery queryWithClassName:@"Image"];
-    [query whereKey:@"note" equalTo:self.note];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
-        if (!error) {
-            // Creates an array of promises that download the images
-            NSMutableArray *imageDownloadPromises = [[NSMutableArray alloc] init];
-            
-            for (NSInteger i = 0; i < results.count; i++) {
-                // Encapsulate the integer i into a function scope
-                void (^wrappedFunction)(long) = ^void(long imageIndex) {
-                    [imageDownloadPromises addObject:[PMKPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-                        PFObject *imageObject = results[imageIndex];
-                        PFFile *imageFile = [imageObject objectForKey:@"image"];
-                        
-                        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                            if (!error) {
-                                UIImage *image = [UIImage imageWithData:data];
-                                resolve(image);
-                            } else {
-                                NSLog(@"Error retrieving image: %@", error.description);
-                            }
-                        }];
-                    }]];
-                };
-                wrappedFunction(i);
-            }
-            
-            // Reload image collection cells after downloading images
-            PMKJoin(imageDownloadPromises).then(^(NSArray *results, NSArray *values, NSArray *errors) {
-                if (errors.count == 0) {
-                    self.noteImages = values;
-                    [self.collectionView reloadData];
-                } else {
-                    for (NSInteger i = 0; i < errors.count; i++) {
-                        NSLog(@"Error: %@", [[errors objectAtIndex:i] description]);
-                    }
-                }
-            }).catch(^(NSError *error) {
-                NSLog(@"Error: %@", error.description);
-            });
-        } else {
-            UIAlertView *errAlert = [[UIAlertView alloc] initWithTitle:@"Loading Error" message:@"There was an error loading images" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-            [errAlert show];
-        }
-    }];
+
+    self.imageStore = [[ImageStore alloc] initWithNote:self.note];
+    self.imageStore.delegate = self;
+    [self.imageStore loadImages];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,27 +53,59 @@ static NSString * const reuseIdentifier = @"ImageCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (self.noteImages == nil) {
-        return 0;
-    }
-    return self.noteImages.count;
+    return [self.imageStore imageCount];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DMImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
-    UIImage *image = self.noteImages[indexPath.row];
+    UIImage *image = [self.imageStore imageForIndex:indexPath.row];
     cell.imageView.image = image;
     return cell;
+}
+
+#pragma mark -
+#pragma mark ImageStoreDelegate methods
+
+- (void)imagesFinishedLoading {
+    [self.collectionView reloadData];
+}
+
+#pragma mark -
+#pragma mark UIImagePickerControllerDelegate methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [self.imageStore markAddImage:image];
 }
 
 #pragma mark -
 #pragma mark Actions
 
 - (IBAction)addImage:(id)sender {
-    UIAlertView *imageAlert = [[UIAlertView alloc] initWithTitle:@"Image" message:@"Adding image" delegate:nil cancelButtonTitle:@"Dismiss"otherButtonTitles:nil];
-    [imageAlert show];
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    imagePicker.delegate = self;
+    
+    if ([self.imagePickerPopover isPopoverVisible]) {
+        [self.imagePickerPopover dismissPopoverAnimated:YES];
+        self.imagePickerPopover = nil;
+        return;
+    }
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        self.imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+        self.imagePickerPopover.delegate = self;
+        [self.imagePickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else {
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }
 }
 
 #pragma mark <UICollectionViewDelegate>

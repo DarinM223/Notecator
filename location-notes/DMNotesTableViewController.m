@@ -35,7 +35,6 @@
         self.tabBarItem.title = @"My Notes";
         
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:_cellIdentifier];
-        //[self.tableView registerNib:[UINib nibWithNibName:@"DMNoteTableViewCell" bundle:nil] forCellReuseIdentifier:_cellIdentifier];
     }
     return self;
 }

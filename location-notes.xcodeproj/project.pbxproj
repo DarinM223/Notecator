@@ -12,6 +12,7 @@
 		9387A79B1B9A4D9100E562C4 /* DMImageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9387A79A1B9A4D9100E562C4 /* DMImageCollectionViewController.m */; };
 		9387A79F1B9A6B8000E562C4 /* DMImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9387A79D1B9A6B8000E562C4 /* DMImageCollectionViewCell.m */; };
 		9387A7A01B9A6B8000E562C4 /* DMImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9387A79E1B9A6B8000E562C4 /* DMImageCollectionViewCell.xib */; };
+		93884AF91B9C12FA0065C805 /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 93884AF81B9C12FA0065C805 /* ImageStore.m */; };
 		93891D0D1B98F2C800D3CE64 /* DMAddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93891D0B1B98F2C800D3CE64 /* DMAddNoteViewController.m */; };
 		93891D0E1B98F2C800D3CE64 /* DMAddNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93891D0C1B98F2C800D3CE64 /* DMAddNoteViewController.xib */; };
 		93891D141B990C7100D3CE64 /* DMNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93891D121B990C7100D3CE64 /* DMNoteTableViewCell.m */; };
@@ -49,6 +50,8 @@
 		9387A79C1B9A6B8000E562C4 /* DMImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageCollectionViewCell.h; sourceTree = "<group>"; };
 		9387A79D1B9A6B8000E562C4 /* DMImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageCollectionViewCell.m; sourceTree = "<group>"; };
 		9387A79E1B9A6B8000E562C4 /* DMImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		93884AF71B9C12FA0065C805 /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
+		93884AF81B9C12FA0065C805 /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
 		93891D0A1B98F2C800D3CE64 /* DMAddNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAddNoteViewController.h; sourceTree = "<group>"; };
 		93891D0B1B98F2C800D3CE64 /* DMAddNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAddNoteViewController.m; sourceTree = "<group>"; };
 		93891D0C1B98F2C800D3CE64 /* DMAddNoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMAddNoteViewController.xib; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 		93E435D01B957EF200927656 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				93884AF71B9C12FA0065C805 /* ImageStore.h */,
+				93884AF81B9C12FA0065C805 /* ImageStore.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				93891D141B990C7100D3CE64 /* DMNoteTableViewCell.m in Sources */,
 				93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */,
 				93E435AC1B957D6A00927656 /* main.m in Sources */,
+				93884AF91B9C12FA0065C805 /* ImageStore.m in Sources */,
 				93E435D81B9594E800927656 /* DMLoginViewController.m in Sources */,
 				93891D0D1B98F2C800D3CE64 /* DMAddNoteViewController.m in Sources */,
 			);

@@ -94,7 +94,7 @@
 - (IBAction)imagesClicked:(id)sender {
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake(191, 160)];
+    [flowLayout setItemSize:CGSizeMake(100, 100)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     flowLayout.minimumInteritemSpacing = 0.0f;
     
