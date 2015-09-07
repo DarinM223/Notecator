@@ -10,11 +10,11 @@
 #import <PromiseKit/PromiseKit.h>
 #import "DMImageCollectionViewController.h"
 #import "DMImageCollectionViewCell.h"
-#include "ImageStore.h"
+#include "DMImageStore.h"
 
-@interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UIPopoverControllerDelegate, ImageStoreDelegate>
+@interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UIPopoverControllerDelegate, DMImageStoreDelegate>
 
-@property (nonatomic, strong) ImageStore *imageStore;
+@property (nonatomic, strong) DMImageStore *imageStore;
 @property (nonatomic, strong) UIPopoverController *imagePickerPopover;
 
 @end
@@ -34,7 +34,7 @@ static NSString * const reuseIdentifier = @"ImageCell";
     UIBarButtonItem *addImageButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addImage:)];
     self.navigationItem.rightBarButtonItem = addImageButton;
 
-    self.imageStore = [[ImageStore alloc] initWithNote:self.note];
+    self.imageStore = [[DMImageStore alloc] initWithNote:self.note];
     self.imageStore.delegate = self;
     [self.imageStore loadImages];
 }
@@ -68,8 +68,24 @@ static NSString * const reuseIdentifier = @"ImageCell";
 #pragma mark -
 #pragma mark ImageStoreDelegate methods
 
-- (void)imagesFinishedLoading {
-    [self.collectionView reloadData];
+- (void)imagesFinishedLoading:(NSArray *)errors {
+    if (errors.count == 0) {
+        [self.collectionView reloadData];
+    } else {
+        for (NSError *error in errors) {
+            NSLog(@"Error: %@", error.description);
+        }
+    }
+}
+
+- (void)imagesFinishedSaving:(NSArray *)errors {
+    if (errors.count == 0) {
+        [self.collectionView reloadData];
+    } else {
+        for (NSError *error in errors) {
+            NSLog(@"Error: %@", error.description);
+        }
+    }
 }
 
 #pragma mark -

@@ -9,14 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@protocol ImageStoreDelegate <NSObject>
+@protocol DMImageStoreDelegate <NSObject>
 
 // Called when all of the images are finished being downloaded
-- (void)imagesFinishedLoading;
+- (void)imagesFinishedLoading:(NSArray *)errors;
+
+// Called whenever local changes are finished being saved to remote
+- (void)imagesFinishedSaving:(NSArray *)errors;
 
 @end
 
-@interface ImageStore : NSObject
+@interface DMImageStore : NSObject
 
 // Initialized a new ImageStore based on a parent note
 - (instancetype)initWithNote:(PFObject *)note;
@@ -46,6 +49,6 @@
 // Cancels all of the local changes and reverts back to the original ones
 - (void)cancelAllChanges;
 
-@property (nonatomic, assign) id<ImageStoreDelegate> delegate;
+@property (nonatomic, assign) id<DMImageStoreDelegate> delegate;
 
 @end
