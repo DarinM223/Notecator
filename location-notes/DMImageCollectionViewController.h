@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class PFObject;
+@class DMImageStore;
 
 @interface DMImageCollectionViewController : UICollectionViewController
 
 @property (nonatomic, strong) PFObject *note;
+@property (nonatomic, strong) DMImageStore *imageStore;
 
 @end

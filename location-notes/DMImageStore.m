@@ -24,8 +24,6 @@
 
 @implementation DMImageStore
 
-@synthesize delegate;
-
 - (instancetype)initWithNote:(PFObject *)note {
     self = [super init];
     if (self) {
@@ -38,7 +36,7 @@
     return self;
 }
 
-- (void)loadImages {
+- (void)loadImagesWithBlock:(ImageReturnCallback)block {
     PFQuery *query = [PFQuery queryWithClassName:@"Image"];
     if (self.images.count == 0) {
         query.cachePolicy = kPFCachePolicyCacheElseNetwork;
@@ -47,14 +45,14 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
         if (!error) {
             self.images = results;
-            [self populateImageDictionary];
+            [self populateImageDictionaryWithBlock:block];
         } else {
             NSLog(@"There was an error loading images: %@", error.description);
         }
     }];
 }
 
-- (void)populateImageDictionary {
+- (void)populateImageDictionaryWithBlock:(ImageReturnCallback)block {
     // Creates an array of promises that download the images
     NSMutableArray *imageDownloadPromises = [[NSMutableArray alloc] init];
     
@@ -82,7 +80,7 @@
     }
     
     PMKJoin(imageDownloadPromises).then(^(NSArray *results, NSArray *values, NSArray *errors) {
-        [self.delegate imagesFinishedLoading:errors];
+        block(errors);
     });
 }
 
@@ -143,7 +141,7 @@
     [self.removedImages removeAllObjects];
 }
 
-- (void)apply {
+- (void)applyWithBlock:(ImageReturnCallback)block {
     NSMutableArray *imageSavingPromises = [[NSMutableArray alloc] init];
     NSMutableArray *imageRemovingPromises = [[NSMutableArray alloc] init];
     
@@ -153,7 +151,7 @@
             UIImage *image = [self.addedImages objectAtIndex:imageIndex];
             PFObject *newImageObject = [[PFObject alloc] initWithClassName:@"Image"];
             [newImageObject setObject:self.note forKey:@"note"];
-            [newImageObject setObject:[PFFile fileWithData:UIImagePNGRepresentation(image)] forKey:@"image"];
+            [newImageObject setObject:[PFFile fileWithData:UIImageJPEGRepresentation(image, 0.1)] forKey:@"image"];
             [imageSavingPromises addObject:[PMKPromise promiseWithResolverBlock:^(PMKResolver resolve) {
                 [newImageObject saveInBackgroundWithBlock:^(BOOL success, NSError *error) {
                     if (error != nil) {
@@ -191,9 +189,10 @@
         if (errors.count == 0) {
             [self.addedImages removeAllObjects];
             [self.removedImages removeAllObjects];
+            [self loadImagesWithBlock:block];
+        } else {
+            block(errors);
         }
-        [self.delegate imagesFinishedSaving:errors];
-        [self loadImages];
     });
 }
 

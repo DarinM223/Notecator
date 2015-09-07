@@ -12,9 +12,8 @@
 #import "DMImageCollectionViewCell.h"
 #include "DMImageStore.h"
 
-@interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UIPopoverControllerDelegate, DMImageStoreDelegate>
+@interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
 
-@property (nonatomic, strong) DMImageStore *imageStore;
 @property (nonatomic, strong) UIPopoverController *imagePickerPopover;
 
 @end
@@ -33,10 +32,15 @@ static NSString * const reuseIdentifier = @"ImageCell";
     
     UIBarButtonItem *addImageButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addImage:)];
     self.navigationItem.rightBarButtonItem = addImageButton;
-
-    self.imageStore = [[DMImageStore alloc] initWithNote:self.note];
-    self.imageStore.delegate = self;
-    [self.imageStore loadImages];
+    [self.imageStore loadImagesWithBlock:^(NSArray *errors) {
+        if (errors.count != 0) {
+            for (NSError *error in errors) {
+                NSLog(@"Image loading error: %@", error.description);
+            }
+        } else {
+            [self.collectionView reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,8 +96,11 @@ static NSString * const reuseIdentifier = @"ImageCell";
 #pragma mark UIImagePickerControllerDelegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Finished picking image!");
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     [self.imageStore markAddImage:image];
+    [self.collectionView reloadData];
 }
 
 #pragma mark -

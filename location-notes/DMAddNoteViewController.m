@@ -9,12 +9,14 @@
 #import <Parse/Parse.h>
 #import "DMAddNoteViewController.h"
 #import "DMImageCollectionViewController.h"
+#import "DMImageStore.h"
 
 @interface DMAddNoteViewController () {
     NSString *noNoteText;
 }
 
 @property (nonatomic, weak) IBOutlet UITextView *noteText;
+@property (nonatomic, strong) DMImageStore *imageStore;
 
 @end
 
@@ -30,6 +32,7 @@
         } else {
             self.note = note;
         }
+        self.imageStore = [[DMImageStore alloc] initWithNote:note];
         
         noNoteText = @"Enter note here...";
     }
@@ -100,6 +103,7 @@
     
     DMImageCollectionViewController *imageCollectionController = [[DMImageCollectionViewController alloc] initWithCollectionViewLayout:flowLayout];
     imageCollectionController.note = self.note;
+    imageCollectionController.imageStore = self.imageStore;
     [self.navigationController pushViewController:imageCollectionController animated:YES];
 }
 
@@ -111,18 +115,26 @@
 #pragma mark Bar Button Actions
 
 - (IBAction)cancelNote:(id)sender {
+    [self.imageStore cancelAllChanges];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)saveNote:(id)sender {
-    NSLog(@"Note text: %@", self.noteText.text);
-    if ([self.noteText.text isEqualToString:noNoteText] || self.noteText.text.length == 0) {
-        UIAlertView *noNoteAlert = [[UIAlertView alloc] initWithTitle:@"Note text required" message:@"You need to fill in the note description" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-        [noNoteAlert show];
-    } else {
-        [self.note setObject:self.noteText.text forKey:@"note"];
-        [self.note saveInBackgroundWithTarget:self selector:@selector(onSavedNote:)];
-    }
+    [self.imageStore applyWithBlock:^(NSArray *errors) {
+        if (errors.count != 0) {
+            for (NSError *error in errors) {
+                NSLog(@"Image saving error: %@", error.description);
+            }
+        } else {
+            if ([self.noteText.text isEqualToString:noNoteText] || self.noteText.text.length == 0) {
+                UIAlertView *noNoteAlert = [[UIAlertView alloc] initWithTitle:@"Note text required" message:@"You need to fill in the note description" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                [noNoteAlert show];
+            } else {
+                [self.note setObject:self.noteText.text forKey:@"note"];
+                [self.note saveInBackgroundWithTarget:self selector:@selector(onSavedNote:)];
+            }
+        }
+    }];
 }
 
 - (IBAction)onSavedNote:(id)sender {

@@ -9,15 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@protocol DMImageStoreDelegate <NSObject>
-
-// Called when all of the images are finished being downloaded
-- (void)imagesFinishedLoading:(NSArray *)errors;
-
-// Called whenever local changes are finished being saved to remote
-- (void)imagesFinishedSaving:(NSArray *)errors;
-
-@end
+typedef void (^ImageReturnCallback)(NSArray *);
 
 @interface DMImageStore : NSObject
 
@@ -26,7 +18,7 @@
 
 // Populates the image store with the note's images by querying Parse API
 // should be called after initialization
-- (void)loadImages;
+- (void)loadImagesWithBlock:(ImageReturnCallback)block;
 
 // "Adds" a new image but doesn't persist until changes are applied
 - (void)markAddImage:(UIImage *)image;
@@ -44,11 +36,9 @@
 - (UIImage *)imageFromImageObjectId:(NSString *)objectId;
 
 // Applies all local changes to server
-- (void)apply;
+- (void)applyWithBlock:(ImageReturnCallback)block;
 
 // Cancels all of the local changes and reverts back to the original ones
 - (void)cancelAllChanges;
-
-@property (nonatomic, assign) id<DMImageStoreDelegate> delegate;
 
 @end
