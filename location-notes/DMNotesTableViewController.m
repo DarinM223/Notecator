@@ -12,7 +12,7 @@
 #import "DMAddNoteViewController.h"
 #import "DMNoteTableViewCell.h"
 
-@interface DMNotesTableViewController () {
+@interface DMNotesTableViewController () <DMAddNoteViewControllerDelegate> {
     NSString *_cellIdentifier;
 }
 
@@ -41,7 +41,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     UIBarButtonItem *addNoteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote:)];
     self.tabBarController.navigationItem.rightBarButtonItem = addNoteButton;
 }
@@ -52,15 +54,21 @@
 }
 
 #pragma mark -
+#pragma mark DMAddNoteViewControllerDelegate methods
+
+- (void)didDismissModalWindow {
+    [self loadObjects];
+}
+
+#pragma mark -
 #pragma mark Actions
 
 - (IBAction)addNote:(id)sender {
     // Push add note view controller to the stack
     DMAddNoteViewController *noteViewController = [[DMAddNoteViewController alloc] initWithNote:nil];
+    noteViewController.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:noteViewController];
-    [self presentViewController:navController animated:YES completion:^{
-        [self.tableView reloadData];
-    }];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -77,10 +85,6 @@
 // Find all notes owned by the current user
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    if (self.objects == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
     [query orderByAscending:@"note"];
     return query;
@@ -103,10 +107,15 @@
     PFObject *note = [self.objects objectAtIndex:indexPath.row];
     // Push add note view controller to the stack
     DMAddNoteViewController *noteViewController = [[DMAddNoteViewController alloc] initWithNote:note];
+    noteViewController.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:noteViewController];
-    [self presentViewController:navController animated:YES completion:^{
-        [self.tableView reloadData];
-    }];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self removeObjectAtIndexPath:indexPath animated:YES];
+    }
 }
 
 @end

@@ -37,10 +37,12 @@
 }
 
 - (void)loadImagesWithBlock:(ImageReturnCallback)block {
-    PFQuery *query = [PFQuery queryWithClassName:@"Image"];
-    if (self.images.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    // Don't load anything if note isn't initialized yet
+    if (self.note.objectId == nil) {
+        block([[NSArray alloc] init]);
+        return;
     }
+    PFQuery *query = [PFQuery queryWithClassName:@"Image"];
     [query whereKey:@"note" equalTo:self.note];
     [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
         if (!error) {
@@ -141,7 +143,7 @@
     [self.removedImages removeAllObjects];
 }
 
-- (void)applyWithBlock:(ImageReturnCallback)block {
+- (void)saveChanges:(ImageReturnCallback)block {
     NSMutableArray *imageSavingPromises = [[NSMutableArray alloc] init];
     NSMutableArray *imageRemovingPromises = [[NSMutableArray alloc] init];
     
@@ -182,7 +184,7 @@
         };
         wrappedFunction(objectId);
     }
-
+    
     NSArray *allPromises = [imageSavingPromises arrayByAddingObjectsFromArray:imageRemovingPromises];
     
     PMKJoin(allPromises).then(^(NSArray *results, NSArray *values, NSArray *errors) {
@@ -194,6 +196,21 @@
             block(errors);
         }
     });
+}
+
+- (void)applyWithBlock:(ImageReturnCallback)block {
+    if (self.note.objectId == nil) {
+        // Create object first
+        [self.note saveInBackgroundWithBlock:^(BOOL success, NSError *error) {
+            if (error != nil) {
+                block([NSArray arrayWithObject:error]);
+            } else {
+                [self saveChanges:block];
+            }
+        }];
+    } else {
+        [self saveChanges:block];
+    }
 }
 
 @end

@@ -10,10 +10,18 @@
 
 @class PFObject;
 
+@protocol DMAddNoteViewControllerDelegate <NSObject>
+
+- (void)didDismissModalWindow;
+
+@end
+
 @interface DMAddNoteViewController : UIViewController
 
 - (instancetype)initWithNote:(PFObject *)note;
 
 @property (nonatomic, strong) PFObject *note;
+
+@property (nonatomic, assign) id<DMAddNoteViewControllerDelegate> delegate;
 
 @end

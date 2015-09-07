@@ -22,6 +22,8 @@
 
 @implementation DMAddNoteViewController
 
+@synthesize delegate;
+
 - (instancetype)initWithNote:(PFObject *)note {
     self = [super init];
     if (self) {
@@ -32,7 +34,7 @@
         } else {
             self.note = note;
         }
-        self.imageStore = [[DMImageStore alloc] initWithNote:note];
+        self.imageStore = [[DMImageStore alloc] initWithNote:self.note];
         
         noNoteText = @"Enter note here...";
     }
@@ -95,7 +97,6 @@
 #pragma mark Interface Builder Actions
 
 - (IBAction)imagesClicked:(id)sender {
-    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setItemSize:CGSizeMake(100, 100)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -138,6 +139,7 @@
 }
 
 - (IBAction)onSavedNote:(id)sender {
+    [self.delegate didDismissModalWindow];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

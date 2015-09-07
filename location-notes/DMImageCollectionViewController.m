@@ -70,29 +70,6 @@ static NSString * const reuseIdentifier = @"ImageCell";
 }
 
 #pragma mark -
-#pragma mark ImageStoreDelegate methods
-
-- (void)imagesFinishedLoading:(NSArray *)errors {
-    if (errors.count == 0) {
-        [self.collectionView reloadData];
-    } else {
-        for (NSError *error in errors) {
-            NSLog(@"Error: %@", error.description);
-        }
-    }
-}
-
-- (void)imagesFinishedSaving:(NSArray *)errors {
-    if (errors.count == 0) {
-        [self.collectionView reloadData];
-    } else {
-        for (NSError *error in errors) {
-            NSLog(@"Error: %@", error.description);
-        }
-    }
-}
-
-#pragma mark -
 #pragma mark UIImagePickerControllerDelegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

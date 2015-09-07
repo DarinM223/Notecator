@@ -38,7 +38,6 @@
     NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships" ];
     
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-        NSLog(@"Finished log in!");
         if (!user) {
             NSString *alertMessage, *alertTitle;
             if (error) {
