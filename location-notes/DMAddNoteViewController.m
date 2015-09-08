@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "DMAddNoteViewController.h"
 #import "DMImageCollectionViewController.h"
+#import "DMLocationMapViewController.h"
 #import "DMImageStore.h"
 
 @interface DMAddNoteViewController () {
@@ -109,7 +110,8 @@
 }
 
 - (IBAction)locationClicked:(id)sender {
-    NSLog(@"Location clicked!");
+    DMLocationMapViewController *locationController = [[DMLocationMapViewController alloc] init];
+    [self.navigationController pushViewController:locationController animated:YES];
 }
 
 #pragma mark -

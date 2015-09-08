@@ -26,6 +26,8 @@
 		93E435D81B9594E800927656 /* DMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435D61B9594E800927656 /* DMLoginViewController.m */; };
 		93E435D91B9594E800927656 /* DMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93E435D71B9594E800927656 /* DMLoginViewController.xib */; };
 		93E435DD1B95A65F00927656 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93E435DC1B95A65F00927656 /* Keys.plist */; };
+		93F86BE41B9E1A770094DBBD /* DMLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F86BE21B9E1A770094DBBD /* DMLocationMapViewController.m */; };
+		93F86BE51B9E1A770094DBBD /* DMLocationMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F86BE31B9E1A770094DBBD /* DMLocationMapViewController.xib */; };
 		E1C62638A367BEA2FEAC8FD2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAF2ACEEDF3FD37DC404120 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -73,6 +75,9 @@
 		93E435D61B9594E800927656 /* DMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLoginViewController.m; sourceTree = "<group>"; };
 		93E435D71B9594E800927656 /* DMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMLoginViewController.xib; sourceTree = "<group>"; };
 		93E435DC1B95A65F00927656 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		93F86BE11B9E1A770094DBBD /* DMLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLocationMapViewController.h; sourceTree = "<group>"; };
+		93F86BE21B9E1A770094DBBD /* DMLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLocationMapViewController.m; sourceTree = "<group>"; };
+		93F86BE31B9E1A770094DBBD /* DMLocationMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMLocationMapViewController.xib; sourceTree = "<group>"; };
 		CBD68D13288CCE05058CD742 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E829E39A3F351AC86A9665AC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +172,7 @@
 				93891D131B990C7100D3CE64 /* DMNoteTableViewCell.xib */,
 				93891D0C1B98F2C800D3CE64 /* DMAddNoteViewController.xib */,
 				93E435D71B9594E800927656 /* DMLoginViewController.xib */,
+				93F86BE31B9E1A770094DBBD /* DMLocationMapViewController.xib */,
 				93E435AA1B957D6A00927656 /* Info.plist */,
 				93E435AB1B957D6A00927656 /* main.m */,
 				93E435DC1B95A65F00927656 /* Keys.plist */,
@@ -204,6 +210,8 @@
 				93891D0B1B98F2C800D3CE64 /* DMAddNoteViewController.m */,
 				9387A7991B9A4D9100E562C4 /* DMImageCollectionViewController.h */,
 				9387A79A1B9A4D9100E562C4 /* DMImageCollectionViewController.m */,
+				93F86BE11B9E1A770094DBBD /* DMLocationMapViewController.h */,
+				93F86BE21B9E1A770094DBBD /* DMLocationMapViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +324,7 @@
 				93E435B71B957D6A00927656 /* Images.xcassets in Resources */,
 				93E435D91B9594E800927656 /* DMLoginViewController.xib in Resources */,
 				9387A7A01B9A6B8000E562C4 /* DMImageCollectionViewCell.xib in Resources */,
+				93F86BE51B9E1A770094DBBD /* DMLocationMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +398,7 @@
 				93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */,
 				93E435AC1B957D6A00927656 /* main.m in Sources */,
 				93884AF91B9C12FA0065C805 /* DMImageStore.m in Sources */,
+				93F86BE41B9E1A770094DBBD /* DMLocationMapViewController.m in Sources */,
 				93E435D81B9594E800927656 /* DMLoginViewController.m in Sources */,
 				93891D0D1B98F2C800D3CE64 /* DMAddNoteViewController.m in Sources */,
 			);
