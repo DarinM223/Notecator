@@ -9,9 +9,11 @@
 #import <Parse/Parse.h>
 #import <MapKit/MapKit.h>
 #import "DMLocationMapViewController.h"
+#import "DMNote.h"
 
 @interface DMLocationMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate> {
     CLLocationManager *locationManager;
+    NSArray *annotations;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -24,6 +26,7 @@
     self = [super init];
     if (self) {
         self.note = note;
+        annotations = [[NSArray alloc] init];
     }
     return self;
 }
@@ -32,6 +35,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.mapView.delegate = self;
+    
+    // Add touch gestures
+    UILongPressGestureRecognizer *changeLocationPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLocationChange:)];
+    changeLocationPress.minimumPressDuration = 1;
+    [self.mapView addGestureRecognizer:changeLocationPress];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -40,7 +48,6 @@
     
     PFGeoPoint *locationObject = [self.note objectForKey:@"location"];
     if (locationObject == nil) {
-        NSLog(@"Location is null!");
         locationManager = [[CLLocationManager alloc] init];
         locationManager.delegate = self;
         locationManager.distanceFilter = kCLDistanceFilterNone;
@@ -53,6 +60,12 @@
     } else {
         CLLocation *location = [[CLLocation alloc] initWithLatitude:locationObject.latitude longitude:locationObject.longitude];
         self.mapView.centerCoordinate = location.coordinate;
+        
+        // Add the annotation to the map if there already isn't an annotation
+        if (self.mapView.annotations.count == 0) {
+            DMNote *noteFromObject = [[DMNote alloc] initWithNote:self.note];
+            [self.mapView addAnnotation:noteFromObject];
+        }
     }
 }
 
@@ -69,12 +82,38 @@
     if (locationObject == nil) {
         locationObject = [PFGeoPoint geoPointWithLatitude:userLocation.location.coordinate.latitude longitude:userLocation.location.coordinate.longitude];
         [self.note setObject:locationObject forKey:@"location"];
-        self.mapView.centerCoordinate = userLocation.location.coordinate;
+        mapView.centerCoordinate = userLocation.location.coordinate;
+        
+        // Add the annotation to the map if there already isn't an annotation
+        if (self.mapView.annotations.count != 0) {
+            [mapView removeAnnotations:mapView.annotations];
+        }
+        DMNote *noteFromObject = [[DMNote alloc] initWithNote:self.note];
+        [mapView addAnnotation:noteFromObject];
     }
 }
 
 #pragma mark -
 #pragma mark Actions
+
+- (void)onLocationChange:(UILongPressGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D coordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    
+    PFGeoPoint *locationObject = [PFGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    [self.note setObject:locationObject forKey:@"location"];
+    self.mapView.centerCoordinate = coordinate;
+    
+    if (self.mapView.annotations.count != 0) {
+        [self.mapView removeAnnotations:self.mapView.annotations];
+    }
+    DMNote *noteFromObject = [[DMNote alloc] initWithNote:self.note];
+    [self.mapView addAnnotation:noteFromObject];
+}
 
 - (IBAction)onSearch:(id)sender {
     NSLog(@"Search button clicked!");

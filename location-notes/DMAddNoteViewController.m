@@ -110,7 +110,7 @@
 }
 
 - (IBAction)locationClicked:(id)sender {
-    DMLocationMapViewController *locationController = [[DMLocationMapViewController alloc] init];
+    DMLocationMapViewController *locationController = [[DMLocationMapViewController alloc] initWithNote:self.note];
     [self.navigationController pushViewController:locationController animated:YES];
 }
 

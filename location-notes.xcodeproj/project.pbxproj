@@ -28,6 +28,7 @@
 		93E435DD1B95A65F00927656 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93E435DC1B95A65F00927656 /* Keys.plist */; };
 		93F86BE41B9E1A770094DBBD /* DMLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F86BE21B9E1A770094DBBD /* DMLocationMapViewController.m */; };
 		93F86BE51B9E1A770094DBBD /* DMLocationMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F86BE31B9E1A770094DBBD /* DMLocationMapViewController.xib */; };
+		93F86BEB1B9E95410094DBBD /* DMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F86BEA1B9E95410094DBBD /* DMNote.m */; };
 		E1C62638A367BEA2FEAC8FD2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAF2ACEEDF3FD37DC404120 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		93F86BE11B9E1A770094DBBD /* DMLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLocationMapViewController.h; sourceTree = "<group>"; };
 		93F86BE21B9E1A770094DBBD /* DMLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLocationMapViewController.m; sourceTree = "<group>"; };
 		93F86BE31B9E1A770094DBBD /* DMLocationMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMLocationMapViewController.xib; sourceTree = "<group>"; };
+		93F86BE91B9E95410094DBBD /* DMNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNote.h; sourceTree = "<group>"; };
+		93F86BEA1B9E95410094DBBD /* DMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNote.m; sourceTree = "<group>"; };
 		CBD68D13288CCE05058CD742 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E829E39A3F351AC86A9665AC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -221,6 +224,8 @@
 			children = (
 				93884AF71B9C12FA0065C805 /* DMImageStore.h */,
 				93884AF81B9C12FA0065C805 /* DMImageStore.m */,
+				93F86BE91B9E95410094DBBD /* DMNote.h */,
+				93F86BEA1B9E95410094DBBD /* DMNote.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 			files = (
 				935A7AF01B985B77003AB0D8 /* DMNotesMapViewController.m in Sources */,
 				9387A79F1B9A6B8000E562C4 /* DMImageCollectionViewCell.m in Sources */,
+				93F86BEB1B9E95410094DBBD /* DMNote.m in Sources */,
 				9387A79B1B9A4D9100E562C4 /* DMImageCollectionViewController.m in Sources */,
 				9358717D1B9771AA004F0889 /* DMNotesTableViewController.m in Sources */,
 				93891D141B990C7100D3CE64 /* DMNoteTableViewCell.m in Sources */,
