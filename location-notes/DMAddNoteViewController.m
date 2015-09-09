@@ -99,8 +99,9 @@
 
 - (IBAction)imagesClicked:(id)sender {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake(100, 100)];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    double itemSize = self.view.bounds.size.width / 3.0;
+    [flowLayout setItemSize:CGSizeMake(itemSize, itemSize)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     flowLayout.minimumInteritemSpacing = 0.0f;
     
     DMImageCollectionViewController *imageCollectionController = [[DMImageCollectionViewController alloc] initWithCollectionViewLayout:flowLayout];
