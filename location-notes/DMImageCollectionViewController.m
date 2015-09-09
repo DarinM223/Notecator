@@ -10,7 +10,8 @@
 #import <PromiseKit/PromiseKit.h>
 #import "DMImageCollectionViewController.h"
 #import "DMImageCollectionViewCell.h"
-#include "DMImageStore.h"
+#import "DMImageDetailViewController.h"
+#import "DMImageStore.h"
 
 @interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
 
@@ -67,6 +68,11 @@ static NSString * const reuseIdentifier = @"ImageCell";
     UIImage *image = [self.imageStore imageForIndex:indexPath.row];
     cell.imageView.image = image;
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    DMImageDetailViewController *detailController = [[DMImageDetailViewController alloc] initWithImageStore:self.imageStore imageIndex:indexPath.row];
+    [self.navigationController pushViewController:detailController animated:YES];
 }
 
 #pragma mark -

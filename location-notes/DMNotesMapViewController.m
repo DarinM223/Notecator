@@ -46,6 +46,8 @@ static double MAX_DISTANCE = 1000.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {

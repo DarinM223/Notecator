@@ -20,6 +20,8 @@
 		93891D151B990C7100D3CE64 /* DMNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93891D131B990C7100D3CE64 /* DMNoteTableViewCell.xib */; };
 		93891D171B99289700D3CE64 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93891D161B99289700D3CE64 /* MapKit.framework */; };
 		93A0E4671B9F8FD500C346EA /* DMLocationSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0E4661B9F8FD500C346EA /* DMLocationSearchTableViewController.m */; };
+		93A0E46E1B9FE57700C346EA /* DMImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0E46C1B9FE57700C346EA /* DMImageDetailViewController.m */; };
+		93A0E46F1B9FE57700C346EA /* DMImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A0E46D1B9FE57700C346EA /* DMImageDetailViewController.xib */; };
 		93E435AC1B957D6A00927656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AB1B957D6A00927656 /* main.m */; };
 		93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AE1B957D6A00927656 /* AppDelegate.m */; };
 		93E435B71B957D6A00927656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E435B61B957D6A00927656 /* Images.xcassets */; };
@@ -67,6 +69,9 @@
 		93891D161B99289700D3CE64 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93A0E4651B9F8FD500C346EA /* DMLocationSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLocationSearchTableViewController.h; sourceTree = "<group>"; };
 		93A0E4661B9F8FD500C346EA /* DMLocationSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLocationSearchTableViewController.m; sourceTree = "<group>"; };
+		93A0E46B1B9FE57700C346EA /* DMImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageDetailViewController.h; sourceTree = "<group>"; };
+		93A0E46C1B9FE57700C346EA /* DMImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageDetailViewController.m; sourceTree = "<group>"; };
+		93A0E46D1B9FE57700C346EA /* DMImageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMImageDetailViewController.xib; sourceTree = "<group>"; };
 		93E435A61B957D6A00927656 /* location-notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "location-notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E435AA1B957D6A00927656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E435AB1B957D6A00927656 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -182,6 +187,7 @@
 				93E435D71B9594E800927656 /* DMLoginViewController.xib */,
 				93593E911B9EE10F000F0701 /* DMNotesMapViewController.xib */,
 				93F86BE31B9E1A770094DBBD /* DMLocationMapViewController.xib */,
+				93A0E46D1B9FE57700C346EA /* DMImageDetailViewController.xib */,
 				93E435AA1B957D6A00927656 /* Info.plist */,
 				93E435AB1B957D6A00927656 /* main.m */,
 				93E435DC1B95A65F00927656 /* Keys.plist */,
@@ -223,6 +229,8 @@
 				93593E901B9EE10F000F0701 /* DMNotesMapViewController.m */,
 				93A0E4651B9F8FD500C346EA /* DMLocationSearchTableViewController.h */,
 				93A0E4661B9F8FD500C346EA /* DMLocationSearchTableViewController.m */,
+				93A0E46B1B9FE57700C346EA /* DMImageDetailViewController.h */,
+				93A0E46C1B9FE57700C346EA /* DMImageDetailViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -330,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A0E46F1B9FE57700C346EA /* DMImageDetailViewController.xib in Resources */,
 				93891D151B990C7100D3CE64 /* DMNoteTableViewCell.xib in Resources */,
 				93E435DD1B95A65F00927656 /* Keys.plist in Resources */,
 				93E435BA1B957D6A00927656 /* LaunchScreen.xib in Resources */,
@@ -404,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A0E46E1B9FE57700C346EA /* DMImageDetailViewController.m in Sources */,
 				9387A79F1B9A6B8000E562C4 /* DMImageCollectionViewCell.m in Sources */,
 				93F86BEB1B9E95410094DBBD /* DMNote.m in Sources */,
 				9387A79B1B9A4D9100E562C4 /* DMImageCollectionViewController.m in Sources */,
