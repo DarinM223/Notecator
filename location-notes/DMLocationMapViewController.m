@@ -9,9 +9,10 @@
 #import <Parse/Parse.h>
 #import <MapKit/MapKit.h>
 #import "DMLocationMapViewController.h"
+#import "DMLocationSearchTableViewController.h"
 #import "DMNote.h"
 
-@interface DMLocationMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate> {
+@interface DMLocationMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, DMLocationSearchTableViewControllerDelegate> {
     CLLocationManager *locationManager;
     NSArray *annotations;
 }
@@ -84,13 +85,30 @@
         [self.note setObject:locationObject forKey:@"location"];
         mapView.centerCoordinate = userLocation.location.coordinate;
         
-        // Add the annotation to the map if there already isn't an annotation
-        if (self.mapView.annotations.count != 0) {
+        // Remove existing annotations and add new annotation to the map
+        if (mapView.annotations.count != 0) {
             [mapView removeAnnotations:mapView.annotations];
         }
         DMNote *noteFromObject = [[DMNote alloc] initWithNote:self.note];
         [mapView addAnnotation:noteFromObject];
     }
+}
+
+#pragma mark -
+#pragma mark DMLocationSearchTableViewControllerDelegate methods
+
+- (void)locationSelected:(CLLocation *)location {
+    // Set note with new location
+    PFGeoPoint *locationObject = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+    [self.note setObject:locationObject forKey:@"location"];
+    self.mapView.centerCoordinate = location.coordinate;
+    
+    // Remove existing annotations and add new annotation to the map
+    if (self.mapView.annotations.count != 0) {
+        [self.mapView removeAnnotations:self.mapView.annotations];
+    }
+    DMNote *noteFromObject = [[DMNote alloc] initWithNote:self.note];
+    [self.mapView addAnnotation:noteFromObject];
 }
 
 #pragma mark -
@@ -116,7 +134,9 @@
 }
 
 - (IBAction)onSearch:(id)sender {
-    NSLog(@"Search button clicked!");
+    DMLocationSearchTableViewController *searchController = [[DMLocationSearchTableViewController alloc] init];
+    searchController.delegate = self;
+    [self.navigationController pushViewController:searchController animated:YES];
 }
 
 @end
