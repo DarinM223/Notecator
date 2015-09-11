@@ -44,6 +44,15 @@ static NSString * const reuseIdentifier = @"ImageCell";
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // If another view controller is popped to this controller, reload
+    if (self.isMovingToParentViewController == NO) {
+        [self.collectionView reloadData];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -80,7 +89,6 @@ static NSString * const reuseIdentifier = @"ImageCell";
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"Finished picking image!");
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     [self.imageStore markAddImage:image];
     [self.collectionView reloadData];

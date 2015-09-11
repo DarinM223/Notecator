@@ -29,6 +29,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.imageView.userInteractionEnabled = YES;
+    
+    // Add swipe recognizers
+    UISwipeGestureRecognizer *leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rightArrowSelected:)];
+    UISwipeGestureRecognizer *rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftArrowSelected:)];
+    
+    leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.imageView addGestureRecognizer:leftSwipeRecognizer];
+    [self.imageView addGestureRecognizer:rightSwipeRecognizer];
+    
+    UIBarButtonItem *deleteImageButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteImage:)];
+    self.navigationItem.rightBarButtonItem = deleteImageButton;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -59,6 +73,20 @@
     if (self.imageIndex + 1 < [self.imageStore imageCount]) {
         self.imageIndex++;
         
+        UIImage *image = [self.imageStore imageForIndex:self.imageIndex];
+        self.imageView.image = image;
+    }
+}
+
+- (IBAction)deleteImage:(id)sender {
+    [self.imageStore markRemoveImage:self.imageIndex];
+    // Go back if there are no more images
+    if ([self.imageStore imageCount] == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        if (self.imageIndex >= [self.imageStore imageCount] - 1) {
+            self.imageIndex--;
+        }
         UIImage *image = [self.imageStore imageForIndex:self.imageIndex];
         self.imageView.image = image;
     }
