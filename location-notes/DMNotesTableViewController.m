@@ -12,9 +12,10 @@
 #import "DMAddNoteViewController.h"
 #import "DMNoteTableViewCell.h"
 
-@interface DMNotesTableViewController () <DMAddNoteViewControllerDelegate> {
-    NSString *_cellIdentifier;
-}
+static NSString *_cellIdentifier = @"NoteCell";
+static NSString *_noteNibName = @"DMNoteTableViewCell";
+
+@interface DMNotesTableViewController () <DMAddNoteViewControllerDelegate>
 
 @end
 
@@ -29,18 +30,16 @@
         
         self.parseClassName = className;
         
-        _cellIdentifier = @"NoteCell";
-        
         // Configure tab bar item
         self.tabBarItem.title = @"My Notes";
-        
-        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:_cellIdentifier];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UINib *noteNib = [UINib nibWithNibName:_noteNibName bundle:nil];
+    [self.tableView registerNib:noteNib forCellReuseIdentifier:_cellIdentifier];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,15 +92,8 @@
 }
 
 - (PFTableViewCell *)tableView:(UITableView * __nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * __nonnull)indexPath object:(nullable PFObject *)object {
-    
-    PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellIdentifier forIndexPath:indexPath];
-    
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:_cellIdentifier owner:self options:nil][0];
-    }
-    
-    cell.textLabel.text = [object objectForKey:@"note"];
-    
+    DMNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellIdentifier forIndexPath:indexPath];
+    cell.noteDescription.text = [object objectForKey:@"note"];
     return cell;
 }
 

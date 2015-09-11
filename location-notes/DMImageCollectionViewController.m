@@ -13,6 +13,8 @@
 #import "DMImageDetailViewController.h"
 #import "DMImageStore.h"
 
+static NSString * const reuseIdentifier = @"ImageCell";
+
 @interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) UIPopoverController *imagePickerPopover;
@@ -20,8 +22,6 @@
 @end
 
 @implementation DMImageCollectionViewController
-
-static NSString * const reuseIdentifier = @"ImageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
