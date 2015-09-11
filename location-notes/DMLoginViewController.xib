@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DMLoginViewController">
             <connections>
+                <outlet property="imageView" destination="GCz-xo-tgj" id="hpu-pg-gLm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,6 +24,7 @@
                         <constraint firstAttribute="width" constant="143" id="QGe-5A-qhH"/>
                     </constraints>
                     <state key="normal" title="Login with Facebook">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="default">
@@ -36,16 +38,23 @@
                         <action selector="onFacebookLoginClicked:" destination="-1" eventType="touchUpInside" id="UuU-c5-bHk"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GCz-xo-tgj">
+                    <rect key="frame" x="8" y="113" width="584" height="260"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Mtf-W4-ptg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="229" id="0L8-5N-xCb"/>
                 <constraint firstAttribute="bottom" secondItem="Mtf-W4-ptg" secondAttribute="bottom" constant="82" id="5v6-BA-Jz4"/>
+                <constraint firstItem="GCz-xo-tgj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="9X0-Ir-CHx"/>
                 <constraint firstAttribute="centerX" secondItem="Mtf-W4-ptg" secondAttribute="centerX" id="KFu-D0-7lO"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mtf-W4-ptg" secondAttribute="trailing" constant="228" id="OpE-xa-qp5"/>
                 <constraint firstAttribute="bottom" secondItem="Mtf-W4-ptg" secondAttribute="bottom" constant="82" id="PAU-qN-Gzq"/>
+                <constraint firstAttribute="trailing" secondItem="GCz-xo-tgj" secondAttribute="trailing" constant="8" id="RVS-9H-cRU"/>
+                <constraint firstItem="GCz-xo-tgj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="113" id="Zpu-hf-Q1X"/>
                 <constraint firstAttribute="bottom" secondItem="Mtf-W4-ptg" secondAttribute="bottom" constant="82" id="aEY-0c-xWx"/>
                 <constraint firstAttribute="trailing" secondItem="Mtf-W4-ptg" secondAttribute="trailing" constant="228" id="aQg-Ke-hRI"/>
+                <constraint firstItem="Mtf-W4-ptg" firstAttribute="top" secondItem="GCz-xo-tgj" secondAttribute="bottom" constant="115" id="bY9-Ff-MV3"/>
                 <constraint firstItem="Mtf-W4-ptg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="229" id="gM1-v2-dcn"/>
             </constraints>
             <variation key="default">

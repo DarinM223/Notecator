@@ -42,9 +42,16 @@
     return self;
 }
 
+- (void)viewDidLayoutSubviews {
+    [self.noteText setContentOffset:CGPointZero animated:NO];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.noteText.layer.borderColor = [[UIColor blackColor] CGColor];
+    self.noteText.layer.borderWidth = 1.0;
+    self.noteText.scrollEnabled = NO;
     
     // Set gesture recogizers
     UITapGestureRecognizer *tapInTextField = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInTextField:)];

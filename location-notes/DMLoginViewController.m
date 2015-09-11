@@ -23,6 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0.05 green:0.47 blue:0.91 alpha:1.0];
+    self.imageView.image = [UIImage imageNamed:@"map"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -9,7 +9,7 @@
 #import <MapKit/MapKit.h>
 #import "DMLocationSearchTableViewController.h"
 
-@interface DMLocationSearchTableViewController () <UISearchBarDelegate, UISearchResultsUpdating>
+@interface DMLocationSearchTableViewController () <UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
 @property (nonatomic, strong) CLGeocoder *geocoder;
 @property (nonatomic, strong) NSArray *placemarks;
@@ -27,14 +27,21 @@
     self.geocoder = [[CLGeocoder alloc] init];
     self.placemarks = [[NSArray alloc] init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.hidesNavigationBarDuringPresentation = NO;
     self.searchController.searchBar.scopeButtonTitles = @[@"Location"];
     self.searchController.searchBar.delegate = self;
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
-    
+    [self.searchController.searchBar sizeToFit];
+
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    searchController.searchBar.showsCancelButton = NO;
 }
 
 - (void)didReceiveMemoryWarning {
