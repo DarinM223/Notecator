@@ -32,6 +32,15 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
         
         // Configure tab bar item
         self.tabBarItem.title = @"My Notes";
+        
+        CGRect rect = CGRectMake(0, 0, 40, 40);
+        UIImage *i = [UIImage imageNamed:@"note"];
+        UIGraphicsBeginImageContext(rect.size);
+        [i drawInRect:rect];
+        UIImage *picture = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        self.tabBarItem.image = picture;
     }
     return self;
 }
@@ -94,7 +103,14 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
 - (PFTableViewCell *)tableView:(UITableView * __nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * __nonnull)indexPath object:(nullable PFObject *)object {
     DMNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellIdentifier forIndexPath:indexPath];
     cell.noteDescription.text = [object objectForKey:@"note"];
+    PFGeoPoint *locationPoint = [object objectForKey:@"location"];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:locationPoint.latitude longitude:locationPoint.longitude];
+    cell.location = location;
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

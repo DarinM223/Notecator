@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <ParseUI/ParseUI.h>
 
+@class DMImageStore;
+@class CLLocation;
+
 @interface DMNoteTableViewCell : PFTableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *noteDescription;
+@property (nonatomic, weak) IBOutlet UILabel *locationDescription;
+
+@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, strong) DMImageStore *imageStore;
 
 @end

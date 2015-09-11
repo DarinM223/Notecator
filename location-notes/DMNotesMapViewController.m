@@ -30,6 +30,15 @@ static double MAX_DISTANCE = 1000.0;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.tabBarItem.title = @"Map";
+        
+        CGRect rect = CGRectMake(0, 0, 40, 40);
+        UIImage *i = [UIImage imageNamed:@"map"];
+        UIGraphicsBeginImageContext(rect.size);
+        [i drawInRect:rect];
+        UIImage *picture = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        self.tabBarItem.image = picture;
         annotations = [[NSMutableArray alloc] init];
         locationManager = [[CLLocationManager alloc] init];
         locationManager.delegate = self;

@@ -66,6 +66,7 @@
             tabBarController.viewControllers = @[ notesTableViewController, notesMapViewController ];
             
             // Overwrite navigation stack with the tab bar controller
+            self.navigationController.navigationBar.hidden = NO;
             [self.navigationController setViewControllers:@[tabBarController] animated:YES];
         }
     }];

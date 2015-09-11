@@ -33,8 +33,26 @@
     [Parse setApplicationId:[dict objectForKey:@"parseApplicationId"] clientKey:[dict objectForKey:@"parseClientKey"]];
     [PFFacebookUtils initializeFacebook];
     
+    // Set appearance
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.05 green:0.47 blue:0.91 alpha:1.0];
+    [UINavigationBar appearance].titleTextAttributes = @{
+                                                         NSForegroundColorAttributeName: [UIColor whiteColor]
+                                                         };
+    [UITabBar appearance].tintColor = [UIColor whiteColor];
+    [UITabBar appearance].barTintColor = [UIColor colorWithRed:0.05 green:0.47 blue:0.91 alpha:1.0];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{
+                                                        NSForegroundColorAttributeName: [UIColor whiteColor]
+                                                        } forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{
+                                                        NSForegroundColorAttributeName: [UIColor blackColor]
+                                                        } forState:UIControlStateNormal];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
     DMLoginViewController *lvc = [[DMLoginViewController alloc] init];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:lvc];
+    nvc.navigationBar.hidden = YES;
     
     self.window.rootViewController = nvc;
     [self.window makeKeyAndVisible];
