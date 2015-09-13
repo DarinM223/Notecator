@@ -102,6 +102,8 @@ static const double ANIMATION_DURATION = 0.5;
     } else {
         if (self.imageIndex >= [self.imageStore imageCount] - 1 && [self.imageStore imageCount] > 1) {
             self.imageIndex--;
+        } else if (self.imageIndex >= [self.imageStore imageCount] - 1) {
+            
         }
         UIImage *image = [self.imageStore imageForIndex:self.imageIndex];
         self.imageView.image = image;

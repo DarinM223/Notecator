@@ -11,11 +11,16 @@
 #import "DMNotesTableViewController.h"
 #import "DMAddNoteViewController.h"
 #import "DMNoteTableViewCell.h"
+#import "DMConstants.h"
 
 static NSString *_cellIdentifier = @"NoteCell";
 static NSString *_noteNibName = @"DMNoteTableViewCell";
 
-@interface DMNotesTableViewController () <DMAddNoteViewControllerDelegate>
+@interface DMNotesTableViewController () <DMAddNoteViewControllerDelegate, CLLocationManagerDelegate> {
+    CLLocationManager *locationManager;
+    CLLocation *currentLocation;
+    CLLocation *lastPulledLocation;
+}
 
 @end
 
@@ -56,6 +61,19 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
     
     UIBarButtonItem *addNoteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote:)];
     self.tabBarController.navigationItem.rightBarButtonItem = addNoteButton;
+    
+    if (locationManager == nil) {
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.distanceFilter = kCLDistanceFilterNone;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    }
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    
+    [locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,10 +89,36 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
 }
 
 #pragma mark -
+#pragma mark CLLocationManagerDelegate methods
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *recentLocation = [locations lastObject];
+    if (currentLocation == nil || lastPulledLocation == nil) {
+        currentLocation = recentLocation;
+        lastPulledLocation = recentLocation;
+        [self loadObjects];
+    } else {
+        currentLocation = recentLocation;
+        
+        // calculate distance between last pulled location and new location
+        // if the distance is greater than a certain amount, set last pulled location to the current location
+        // and repull objects
+        CLLocationDistance distance = [lastPulledLocation distanceFromLocation:currentLocation];
+        CLLocationDistance distanceKilos = distance / 1000.0;
+        
+        if (distanceKilos >= MAX_PULL_DISTANCE) {
+            lastPulledLocation = currentLocation;
+            [self loadObjects];
+        }
+    }
+}
+
+#pragma mark -
 #pragma mark Actions
 
 - (IBAction)addNote:(id)sender {
     // Push add note view controller to the stack
+    [locationManager stopUpdatingLocation];
     DMAddNoteViewController *noteViewController = [[DMAddNoteViewController alloc] initWithNote:nil];
     noteViewController.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:noteViewController];
@@ -96,7 +140,11 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
-    [query orderByAscending:@"note"];
+    if (currentLocation != nil) {
+        // Order by location (miles is Earth's circumference so that all points are included)
+        [query whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude] withinMiles:24860];
+    }
+    
     return query;
 }
 
@@ -115,6 +163,9 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PFObject *note = [self.objects objectAtIndex:indexPath.row];
+    
+    [locationManager stopUpdatingLocation];
+    
     // Push add note view controller to the stack
     DMAddNoteViewController *noteViewController = [[DMAddNoteViewController alloc] initWithNote:note];
     noteViewController.delegate = self;

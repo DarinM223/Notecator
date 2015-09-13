@@ -24,6 +24,7 @@
 		93A0E4671B9F8FD500C346EA /* DMLocationSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0E4661B9F8FD500C346EA /* DMLocationSearchTableViewController.m */; };
 		93A0E46E1B9FE57700C346EA /* DMImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0E46C1B9FE57700C346EA /* DMImageDetailViewController.m */; };
 		93A0E46F1B9FE57700C346EA /* DMImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A0E46D1B9FE57700C346EA /* DMImageDetailViewController.xib */; };
+		93C08B3B1BA58D3700C76F63 /* DMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C08B3A1BA58D3700C76F63 /* DMConstants.m */; };
 		93E435AC1B957D6A00927656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AB1B957D6A00927656 /* main.m */; };
 		93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AE1B957D6A00927656 /* AppDelegate.m */; };
 		93E435B71B957D6A00927656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E435B61B957D6A00927656 /* Images.xcassets */; };
@@ -76,6 +77,8 @@
 		93A0E46B1B9FE57700C346EA /* DMImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageDetailViewController.h; sourceTree = "<group>"; };
 		93A0E46C1B9FE57700C346EA /* DMImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageDetailViewController.m; sourceTree = "<group>"; };
 		93A0E46D1B9FE57700C346EA /* DMImageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMImageDetailViewController.xib; sourceTree = "<group>"; };
+		93C08B391BA58D1B00C76F63 /* DMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMConstants.h; sourceTree = "<group>"; };
+		93C08B3A1BA58D3700C76F63 /* DMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMConstants.m; sourceTree = "<group>"; };
 		93E435A61B957D6A00927656 /* location-notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "location-notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E435AA1B957D6A00927656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E435AB1B957D6A00927656 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -184,6 +187,8 @@
 				93E435CF1B957EDD00927656 /* Controllers */,
 				93E435AD1B957D6A00927656 /* AppDelegate.h */,
 				93E435AE1B957D6A00927656 /* AppDelegate.m */,
+				93C08B391BA58D1B00C76F63 /* DMConstants.h */,
+				93C08B3A1BA58D3700C76F63 /* DMConstants.m */,
 				93E435B61B957D6A00927656 /* Images.xcassets */,
 				93E435B81B957D6A00927656 /* LaunchScreen.xib */,
 				93E435A91B957D6A00927656 /* Supporting Files */,
@@ -442,6 +447,7 @@
 				93F86BE41B9E1A770094DBBD /* DMLocationMapViewController.m in Sources */,
 				93E435D81B9594E800927656 /* DMLoginViewController.m in Sources */,
 				93A0E4671B9F8FD500C346EA /* DMLocationSearchTableViewController.m in Sources */,
+				93C08B3B1BA58D3700C76F63 /* DMConstants.m in Sources */,
 				93891D0D1B98F2C800D3CE64 /* DMAddNoteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

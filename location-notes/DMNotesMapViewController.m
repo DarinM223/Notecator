@@ -9,6 +9,7 @@
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
 #import "DMNotesMapViewController.h"
+#import "DMConstants.h"
 #import "DMNote.h"
 
 @interface DMNotesMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate> {
@@ -22,9 +23,6 @@
 @end
 
 @implementation DMNotesMapViewController
-
-// Maximum distance in kilometers to load notes before repulling
-static double MAX_DISTANCE = 1000.0;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -76,7 +74,7 @@ static double MAX_DISTANCE = 1000.0;
 - (void)pullNotesByCoordinate:(CLLocationCoordinate2D)coordinate {
     PFGeoPoint *locationPoint = [PFGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     PFQuery *noteQuery = [[PFQuery alloc] initWithClassName:@"Note"];
-    [noteQuery whereKey:@"location" nearGeoPoint:locationPoint withinKilometers:MAX_DISTANCE];
+    [noteQuery whereKey:@"location" nearGeoPoint:locationPoint withinKilometers:MAX_PULL_DISTANCE];
     
     [noteQuery findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
         // Reload annotations array
@@ -106,7 +104,7 @@ static double MAX_DISTANCE = 1000.0;
         CLLocationDistance distanceKilos = distance / 1000.0;
         
         // Repull note objects if greater than certain distance
-        if (distanceKilos >= MAX_DISTANCE) {
+        if (distanceKilos >= MAX_PULL_DISTANCE) {
             lastPulledLocation = userLocation.location;
             [self pullNotesByCoordinate:userLocation.location.coordinate];
         }
