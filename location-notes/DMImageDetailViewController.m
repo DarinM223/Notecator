@@ -15,6 +15,8 @@
 
 @end
 
+static const double ANIMATION_DURATION = 0.5;
+
 @implementation DMImageDetailViewController
 
 - (instancetype)initWithImageStore:(DMImageStore *)imageStore imageIndex:(NSInteger)imageIndex {
@@ -60,21 +62,35 @@
 #pragma mark -
 #pragma mark Interface Builder Actions
 
-- (IBAction)leftArrowSelected:(id)sender {
+- (IBAction)leftArrowSelected:(UIGestureRecognizer *)gestureRecognizer {
     if (self.imageIndex - 1 >= 0) {
         self.imageIndex--;
         
         UIImage *image = [self.imageStore imageForIndex:self.imageIndex];
         self.imageView.image = image;
+        
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:ANIMATION_DURATION];
+        [animation setType:kCATransitionPush];
+        [animation setSubtype:kCATransitionFromLeft];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+        [[self.imageView layer] addAnimation:animation forKey:nil];
     }
 }
 
-- (IBAction)rightArrowSelected:(id)sender {
+- (IBAction)rightArrowSelected:(UIGestureRecognizer *)gestureRecognizer {
     if (self.imageIndex + 1 < [self.imageStore imageCount]) {
         self.imageIndex++;
         
         UIImage *image = [self.imageStore imageForIndex:self.imageIndex];
         self.imageView.image = image;
+        
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:ANIMATION_DURATION];
+        [animation setType:kCATransitionPush];
+        [animation setSubtype:kCATransitionFromRight];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+        [[self.imageView layer] addAnimation:animation forKey:nil];
     }
 }
 
@@ -84,11 +100,18 @@
     if ([self.imageStore imageCount] == 0) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        if (self.imageIndex >= [self.imageStore imageCount] - 1) {
+        if (self.imageIndex >= [self.imageStore imageCount] - 1 && [self.imageStore imageCount] > 1) {
             self.imageIndex--;
         }
         UIImage *image = [self.imageStore imageForIndex:self.imageIndex];
         self.imageView.image = image;
+        
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:ANIMATION_DURATION];
+        [animation setType:kCATransitionFade];
+        [animation setSubtype:kCATransitionFromRight];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+        [[self.imageView layer] addAnimation:animation forKey:nil];
     }
 }
 
