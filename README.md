@@ -1,4 +1,4 @@
-Location Notes
+Notecator
 ==============
 
 An iOS app that allows you to take location based notes 
