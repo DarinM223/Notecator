@@ -95,15 +95,14 @@ static const double ANIMATION_DURATION = 0.5;
 }
 
 - (IBAction)deleteImage:(id)sender {
+    NSInteger oldImageCount = [self.imageStore imageCount];
     [self.imageStore markRemoveImage:self.imageIndex];
     // Go back if there are no more images
     if ([self.imageStore imageCount] == 0) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        if (self.imageIndex >= [self.imageStore imageCount] - 1 && [self.imageStore imageCount] > 1) {
+        if (self.imageIndex >= oldImageCount - 1) {
             self.imageIndex--;
-        } else if (self.imageIndex >= [self.imageStore imageCount] - 1) {
-            
         }
         UIImage *image = [self.imageStore imageForIndex:self.imageIndex];
         self.imageView.image = image;

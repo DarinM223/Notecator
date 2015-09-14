@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DMImageDetailViewController">
             <connections>
-                <outlet property="imageView" destination="0Uo-Xe-78C" id="15x-rf-Nhn"/>
+                <outlet property="imageView" destination="HXA-yh-DCA" id="8WM-ks-d16"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,28 +15,18 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Uo-Xe-78C">
-                    <rect key="frame" x="0.0" y="63" width="600" height="537"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HXA-yh-DCA">
+                    <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="0Uo-Xe-78C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="63" id="9eb-PQ-wHG"/>
-                <constraint firstAttribute="bottom" secondItem="0Uo-Xe-78C" secondAttribute="bottom" id="It4-Nx-Cj9"/>
-                <constraint firstItem="0Uo-Xe-78C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KhF-Ra-3Xm"/>
-                <constraint firstAttribute="trailing" secondItem="0Uo-Xe-78C" secondAttribute="trailing" id="Xkt-Xx-apT"/>
-                <constraint firstItem="0Uo-Xe-78C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="66" id="cfg-Oc-bJC"/>
-                <constraint firstItem="0Uo-Xe-78C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eVQ-iw-G3R"/>
-                <constraint firstAttribute="trailing" secondItem="0Uo-Xe-78C" secondAttribute="trailing" id="w9s-L3-Ii3"/>
+                <constraint firstAttribute="bottom" secondItem="HXA-yh-DCA" secondAttribute="bottom" id="0B2-bR-grl"/>
+                <constraint firstAttribute="trailing" secondItem="HXA-yh-DCA" secondAttribute="trailing" id="RPq-zv-mJr"/>
+                <constraint firstItem="HXA-yh-DCA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="65" id="lnp-Fd-CiK"/>
+                <constraint firstItem="HXA-yh-DCA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xLf-Ue-RY1"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="KhF-Ra-3Xm"/>
-                    <exclude reference="Xkt-Xx-apT"/>
-                    <exclude reference="cfg-Oc-bJC"/>
-                </mask>
-            </variation>
         </view>
     </objects>
 </document>
