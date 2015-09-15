@@ -33,6 +33,7 @@ static NSString * const reuseIdentifier = @"ImageCell";
     
     UIBarButtonItem *addImageButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addImage:)];
     self.navigationItem.rightBarButtonItem = addImageButton;
+    
     [self.imageStore loadImagesWithBlock:^(NSArray *errors) {
         if (errors.count != 0) {
             for (NSError *error in errors) {

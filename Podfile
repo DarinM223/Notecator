@@ -10,6 +10,7 @@ pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
 pod 'PromiseKit', '~> 2.0'
+pod 'MMMaterialDesignSpinner'
 
 target 'location-notes' do
 

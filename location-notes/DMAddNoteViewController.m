@@ -11,9 +11,11 @@
 #import "DMImageCollectionViewController.h"
 #import "DMLocationMapViewController.h"
 #import "DMImageStore.h"
+#import "DMSpinner.h"
 
 @interface DMAddNoteViewController () {
     NSString *noNoteText;
+    DMSpinner *spinner;
 }
 
 @property (nonatomic, weak) IBOutlet UITextView *noteText;
@@ -131,6 +133,10 @@
 }
 
 - (IBAction)saveNote:(id)sender {
+    if (spinner == nil) {
+        spinner = [[DMSpinner alloc] initWithView:self.view color:[UIColor greenColor]];
+    }
+    [spinner addSpinner];
     [self.imageStore applyWithBlock:^(NSArray *errors) {
         if (errors.count != 0) {
             for (NSError *error in errors) {
@@ -149,6 +155,9 @@
 }
 
 - (IBAction)onSavedNote:(id)sender {
+    if (spinner != nil) {
+        [spinner removeSpinner];
+    }
     [self.delegate didDismissModalWindow];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

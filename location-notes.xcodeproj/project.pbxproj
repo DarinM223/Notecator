@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		933AD1B51BA8DFF1003070ED /* DMSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 933AD1B41BA8DFF1003070ED /* DMSpinner.m */; };
 		935269861BA26ED10095F821 /* DMNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 935269841BA26ED10095F821 /* DMNoteTableViewCell.m */; };
 		935269871BA26ED10095F821 /* DMNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 935269851BA26ED10095F821 /* DMNoteTableViewCell.xib */; };
 		9352698A1BA27CA50095F821 /* note.png in Resources */ = {isa = PBXBuildFile; fileRef = 935269891BA27CA50095F821 /* note.png */; };
@@ -51,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		0AAF2ACEEDF3FD37DC404120 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		933AD1B31BA8DFF1003070ED /* DMSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMSpinner.h; sourceTree = "<group>"; };
+		933AD1B41BA8DFF1003070ED /* DMSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMSpinner.m; sourceTree = "<group>"; };
 		935269831BA26ED10095F821 /* DMNoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNoteTableViewCell.h; sourceTree = "<group>"; };
 		935269841BA26ED10095F821 /* DMNoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNoteTableViewCell.m; sourceTree = "<group>"; };
 		935269851BA26ED10095F821 /* DMNoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMNoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				93E435AE1B957D6A00927656 /* AppDelegate.m */,
 				93C08B391BA58D1B00C76F63 /* DMConstants.h */,
 				93C08B3A1BA58D3700C76F63 /* DMConstants.m */,
+				933AD1B31BA8DFF1003070ED /* DMSpinner.h */,
+				933AD1B41BA8DFF1003070ED /* DMSpinner.m */,
 				93E435B61B957D6A00927656 /* Images.xcassets */,
 				93E435B81B957D6A00927656 /* LaunchScreen.xib */,
 				93E435A91B957D6A00927656 /* Supporting Files */,
@@ -440,6 +445,7 @@
 				93F86BEB1B9E95410094DBBD /* DMNote.m in Sources */,
 				9387A79B1B9A4D9100E562C4 /* DMImageCollectionViewController.m in Sources */,
 				9358717D1B9771AA004F0889 /* DMNotesTableViewController.m in Sources */,
+				933AD1B51BA8DFF1003070ED /* DMSpinner.m in Sources */,
 				93593E921B9EE10F000F0701 /* DMNotesMapViewController.m in Sources */,
 				93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */,
 				93E435AC1B957D6A00927656 /* main.m in Sources */,

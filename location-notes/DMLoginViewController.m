@@ -13,6 +13,7 @@
 #import "DMLoginViewController.h"
 #import "DMNotesMapViewController.h"
 #import "DMNotesTableViewController.h"
+#import "DMSpinner.h"
 
 @interface DMLoginViewController ()
 
@@ -39,8 +40,12 @@
 
 - (IBAction)onFacebookLoginClicked:(id)sender {
     NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships" ];
+    DMSpinner *spinner = [[DMSpinner alloc] initWithView:self.view color:[UIColor greenColor]];
+    [spinner addSpinner];
     
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        [spinner removeSpinner];
+        
         if (!user) {
             NSString *alertMessage, *alertTitle;
             if (error) {
