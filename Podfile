@@ -9,7 +9,7 @@ pod 'ParseUI'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
-pod 'PromiseKit', '~> 2.0'
+pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
 pod 'MMMaterialDesignSpinner'
 
 target 'location-notes' do

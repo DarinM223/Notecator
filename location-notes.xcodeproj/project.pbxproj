@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		933146511BAB305E00AEBD4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331464E1BAB305E00AEBD4E /* FBSDKCoreKit.framework */; };
+		933146521BAB305E00AEBD4E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331464F1BAB305E00AEBD4E /* FBSDKLoginKit.framework */; };
+		933146531BAB305E00AEBD4E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 933146501BAB305E00AEBD4E /* FBSDKShareKit.framework */; };
 		933AD1B51BA8DFF1003070ED /* DMSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 933AD1B41BA8DFF1003070ED /* DMSpinner.m */; };
 		935269861BA26ED10095F821 /* DMNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 935269841BA26ED10095F821 /* DMNoteTableViewCell.m */; };
 		935269871BA26ED10095F821 /* DMNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 935269851BA26ED10095F821 /* DMNoteTableViewCell.xib */; };
@@ -52,6 +55,9 @@
 
 /* Begin PBXFileReference section */
 		0AAF2ACEEDF3FD37DC404120 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9331464E1BAB305E00AEBD4E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		9331464F1BAB305E00AEBD4E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		933146501BAB305E00AEBD4E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		933AD1B31BA8DFF1003070ED /* DMSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMSpinner.h; sourceTree = "<group>"; };
 		933AD1B41BA8DFF1003070ED /* DMSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMSpinner.m; sourceTree = "<group>"; };
 		935269831BA26ED10095F821 /* DMNoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNoteTableViewCell.h; sourceTree = "<group>"; };
@@ -110,6 +116,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933146511BAB305E00AEBD4E /* FBSDKCoreKit.framework in Frameworks */,
+				933146521BAB305E00AEBD4E /* FBSDKLoginKit.framework in Frameworks */,
+				933146531BAB305E00AEBD4E /* FBSDKShareKit.framework in Frameworks */,
 				93891D171B99289700D3CE64 /* MapKit.framework in Frameworks */,
 				E1C62638A367BEA2FEAC8FD2 /* Pods.framework in Frameworks */,
 			);
@@ -128,6 +137,9 @@
 		4C64741B9C05BA38240EFA25 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9331464E1BAB305E00AEBD4E /* FBSDKCoreKit.framework */,
+				9331464F1BAB305E00AEBD4E /* FBSDKLoginKit.framework */,
+				933146501BAB305E00AEBD4E /* FBSDKShareKit.framework */,
 				93891D161B99289700D3CE64 /* MapKit.framework */,
 				0AAF2ACEEDF3FD37DC404120 /* Pods.framework */,
 			);
@@ -331,6 +343,7 @@
 				TargetAttributes = {
 					93E435A51B957D6A00927656 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = B53D4T6XE8;
 					};
 					93E435BE1B957D6A00927656 = {
 						CreatedOnToolsVersion = 6.4;
@@ -573,9 +586,17 @@
 			baseConfigurationReference = CBD68D13288CCE05058CD742 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = "location-notes/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -584,9 +605,17 @@
 			baseConfigurationReference = E829E39A3F351AC86A9665AC /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = "location-notes/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

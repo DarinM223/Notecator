@@ -61,7 +61,7 @@
     for (NSInteger i = 0; i < self.images.count; i++) {
         // Encapsulate the integer i into a function scope
         void (^wrappedFunction)(long) = ^void(long imageIndex) {
-            [imageDownloadPromises addObject:[PMKPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+            [imageDownloadPromises addObject:[AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
                 PFObject *imageObject = self.images[imageIndex];
                 PFFile *imageFile = [imageObject objectForKey:@"image"];
                 
@@ -154,7 +154,7 @@
             PFObject *newImageObject = [[PFObject alloc] initWithClassName:@"Image"];
             [newImageObject setObject:self.note forKey:@"note"];
             [newImageObject setObject:[PFFile fileWithData:UIImageJPEGRepresentation(image, 0.1)] forKey:@"image"];
-            [imageSavingPromises addObject:[PMKPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+            [imageSavingPromises addObject:[AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
                 [newImageObject saveInBackgroundWithBlock:^(BOOL success, NSError *error) {
                     if (error != nil) {
                         @throw [NSError errorWithDomain:@"Image saving error" code:1 userInfo:nil];
@@ -172,7 +172,7 @@
     for (NSString *objectId in self.removedImages) {
         void (^wrappedFunction)(NSString *) = ^void(NSString *key) {
             PFObject *imageObject = [self.removedImages objectForKey:key];
-            [imageRemovingPromises addObject:[PMKPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+            [imageRemovingPromises addObject:[AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
                 [imageObject deleteInBackgroundWithBlock:^(BOOL success, NSError *error) {
                     if (error != nil) {
                         @throw [NSError errorWithDomain:@"Image removing error" code:2 userInfo:nil];
