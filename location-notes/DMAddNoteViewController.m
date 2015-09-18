@@ -55,6 +55,16 @@
     self.noteText.layer.borderWidth = 1.0;
     self.noteText.scrollEnabled = NO;
     
+    UIBarButtonItem *flexKeyboard = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *cancelKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onKeyboardDone:)];
+    
+    UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    keyboardToolbar.barStyle = UIBarStyleDefault;
+    keyboardToolbar.items = [NSArray arrayWithObjects:
+                             flexKeyboard,
+                             cancelKeyboard, nil];
+    self.noteText.inputAccessoryView = keyboardToolbar;
+    
     // Set gesture recogizers
     UITapGestureRecognizer *tapInTextField = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInTextField:)];
     tapInTextField.numberOfTapsRequired = 1;
@@ -87,13 +97,26 @@
 }
 
 #pragma mark -
+#pragma mark Bar Button Actions
+
+- (IBAction)onKeyboardDone:(id)sender {
+    [self.noteText endEditing:YES];
+    [self.noteText resignFirstResponder];
+}
+
+#pragma mark -
 #pragma mark Gesture Recognizer Actions
 
 - (IBAction)onTapInTextField:(id)sender {
-    if ([self.noteText.text isEqualToString:noNoteText]) {
-        self.noteText.text = @"";
+    if ([self.noteText isFirstResponder]) {
+        [self.noteText endEditing:YES];
+        [self.noteText resignFirstResponder];
+    } else {
+        if ([self.noteText.text isEqualToString:noNoteText]) {
+            self.noteText.text = @"";
+        }
+        [self.noteText becomeFirstResponder];
     }
-    [self.noteText becomeFirstResponder];
 }
                                                                                                         
 - (IBAction)onTapOutsideTextField:(id)sender {
