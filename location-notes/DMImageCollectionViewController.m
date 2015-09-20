@@ -8,6 +8,7 @@
 
 #import <Parse/Parse.h>
 #import <PromiseKit/PromiseKit.h>
+#import <FDTake/FDTakeController.h>
 #import "DMImageCollectionViewController.h"
 #import "DMImageCollectionViewCell.h"
 #import "DMImageDetailViewController.h"
@@ -15,9 +16,9 @@
 
 static NSString * const reuseIdentifier = @"ImageCell";
 
-@interface DMImageCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
+@interface DMImageCollectionViewController () <UINavigationControllerDelegate, FDTakeDelegate>
 
-@property (nonatomic, strong) UIPopoverController *imagePickerPopover;
+@property (nonatomic, strong) FDTakeController *takeController;
 
 @end
 
@@ -43,6 +44,9 @@ static NSString * const reuseIdentifier = @"ImageCell";
             [self.collectionView reloadData];
         }
     }];
+    
+    self.takeController = [[FDTakeController alloc] init];
+    self.takeController.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,12 +90,10 @@ static NSString * const reuseIdentifier = @"ImageCell";
 }
 
 #pragma mark -
-#pragma mark UIImagePickerControllerDelegate methods
+#pragma mark FDTakeDelegate methods
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [self.imageStore markAddImage:image];
+- (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info {
+    [self.imageStore markAddImage:photo];
     [self.collectionView reloadData];
 }
 
@@ -99,28 +101,7 @@ static NSString * const reuseIdentifier = @"ImageCell";
 #pragma mark Actions
 
 - (IBAction)addImage:(id)sender {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    } else {
-        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    imagePicker.delegate = self;
-    
-    if ([self.imagePickerPopover isPopoverVisible]) {
-        [self.imagePickerPopover dismissPopoverAnimated:YES];
-        self.imagePickerPopover = nil;
-        return;
-    }
-    
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        self.imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
-        self.imagePickerPopover.delegate = self;
-        [self.imagePickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    } else {
-        [self presentViewController:imagePicker animated:YES completion:nil];
-    }
+    [self.takeController takePhotoOrChooseFromLibrary];
 }
 
 #pragma mark <UICollectionViewDelegate>

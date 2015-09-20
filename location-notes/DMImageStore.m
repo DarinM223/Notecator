@@ -73,7 +73,7 @@
                         [self.objectToImage setObject:image forKey:imageObject.objectId];
                         resolve(image);
                     } else {
-                        @throw error;
+                        [self performSelector:@selector(populateImageDictionaryWithBlock:) withObject:block afterDelay:0];
                     }
                 }];
             }]];

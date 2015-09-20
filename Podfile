@@ -11,6 +11,7 @@ pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
 pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
 pod 'MMMaterialDesignSpinner'
+pod 'FDTake'
 
 target 'location-notes' do
 

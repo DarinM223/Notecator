@@ -156,6 +156,12 @@
 }
 
 - (IBAction)saveNote:(id)sender {
+    if ([self.note objectForKey:@"location"] == nil) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location not selected" message:@"You have to select a location" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
     if (spinner == nil) {
         spinner = [[DMSpinner alloc] initWithView:self.view color:[UIColor greenColor]];
     }

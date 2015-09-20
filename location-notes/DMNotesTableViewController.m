@@ -53,6 +53,7 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     UINib *noteNib = [UINib nibWithNibName:_noteNibName bundle:nil];
+    self.tableView.rowHeight = 100.0;
     [self.tableView registerNib:noteNib forCellReuseIdentifier:_cellIdentifier];
 }
 
@@ -158,6 +159,10 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100.0;
 }
 
