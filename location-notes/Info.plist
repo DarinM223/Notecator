@@ -74,6 +74,13 @@
                 <key>NSExceptionRequiresForwardSecrecy</key>
                 <false/>
             </dict>
+            <key>files.parsetfss.com</key>
+            <dict>
+                <key>NSIncludeSubdomains</key>
+                <true/>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+            </dict>
         </dict>
     </dict>
     <key>LSApplicationQueriesSchemes</key>
