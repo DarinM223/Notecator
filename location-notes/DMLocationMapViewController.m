@@ -23,6 +23,8 @@
 
 @implementation DMLocationMapViewController
 
+static long const ZOOM_DISTANCE = 100;
+
 - (instancetype)initWithNote:(PFObject *)note {
     self = [super init];
     if (self) {
@@ -62,7 +64,8 @@
         self.mapView.showsUserLocation = YES;
     } else {
         CLLocation *location = [[CLLocation alloc] initWithLatitude:locationObject.latitude longitude:locationObject.longitude];
-        self.mapView.centerCoordinate = location.coordinate;
+        
+        [self updateLocation:location.coordinate];
         
         // Add the annotation to the map if there already isn't an annotation
         if (self.mapView.annotations.count == 0) {
@@ -70,6 +73,14 @@
             [self.mapView addAnnotation:noteFromObject];
         }
     }
+}
+
+// Updates the location and zooms
+- (void)updateLocation:(CLLocationCoordinate2D)location {
+    self.mapView.centerCoordinate = location;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location, ZOOM_DISTANCE, ZOOM_DISTANCE);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+    [self.mapView setRegion:adjustedRegion animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,7 +96,8 @@
     if (locationObject == nil) {
         locationObject = [PFGeoPoint geoPointWithLatitude:userLocation.location.coordinate.latitude longitude:userLocation.location.coordinate.longitude];
         [self.note setObject:locationObject forKey:@"location"];
-        mapView.centerCoordinate = userLocation.location.coordinate;
+        
+        [self updateLocation:userLocation.location.coordinate];
         
         // Remove existing annotations and add new annotation to the map
         if (mapView.annotations.count != 0) {
@@ -103,7 +115,8 @@
     // Set note with new location
     PFGeoPoint *locationObject = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
     [self.note setObject:locationObject forKey:@"location"];
-    self.mapView.centerCoordinate = location.coordinate;
+    
+    [self updateLocation:location.coordinate];
     
     // Remove existing annotations and add new annotation to the map
     if (self.mapView.annotations.count != 0) {

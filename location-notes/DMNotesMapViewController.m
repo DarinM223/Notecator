@@ -24,6 +24,8 @@
 
 @implementation DMNotesMapViewController
 
+static long const ZOOM_DISTANCE = 100;
+
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -93,7 +95,12 @@
 #pragma mark MKMapViewDelegate methods
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    // Set location on map and zoom in
     mapView.centerCoordinate = userLocation.coordinate;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, ZOOM_DISTANCE, ZOOM_DISTANCE);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+    [self.mapView setRegion:adjustedRegion];
+    
     if (lastPulledLocation == nil) {
         lastPulledLocation = userLocation.location;
         [self pullNotesByCoordinate:userLocation.location.coordinate];
