@@ -16,6 +16,7 @@
     CLLocationManager *locationManager;
     NSArray *annotations;
     BOOL locationUpdating;
+    BOOL zoom;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -31,6 +32,7 @@ static long const ZOOM_DISTANCE = 100;
     if (self) {
         self.note = note;
         annotations = [[NSArray alloc] init];
+        zoom = YES;
     }
     return self;
 }
@@ -83,7 +85,13 @@ static long const ZOOM_DISTANCE = 100;
     self.mapView.centerCoordinate = location;
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location, ZOOM_DISTANCE, ZOOM_DISTANCE);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-    [self.mapView setRegion:adjustedRegion animated:YES];
+    if (zoom) {
+        [self.mapView setRegion:adjustedRegion animated:YES];
+        zoom = NO;
+    } else {
+        [self.mapView setRegion:adjustedRegion animated:NO];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,6 +150,9 @@ static long const ZOOM_DISTANCE = 100;
     PFGeoPoint *locationObject = [PFGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     [self.note setObject:locationObject forKey:@"location"];
     self.mapView.centerCoordinate = coordinate;
+    
+    // Turn off auto-follow user location
+    locationUpdating = NO;
     
     if (self.mapView.annotations.count != 0) {
         [self.mapView removeAnnotations:self.mapView.annotations];

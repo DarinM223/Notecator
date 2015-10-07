@@ -156,6 +156,7 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
     PFGeoPoint *locationPoint = [object objectForKey:@"location"];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:locationPoint.latitude longitude:locationPoint.longitude];
     cell.location = location;
+    NSLog(@"Object: %@", object);
     cell.note = object;
     return cell;
 }

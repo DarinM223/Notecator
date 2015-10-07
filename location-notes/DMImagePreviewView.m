@@ -48,12 +48,10 @@ static CGFloat const AROUND_SPACING = 10.0;
     
     [self.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     
-    NSLog(@"Max number of images: %ld", [self maxNumberOfImages]);
-    
     NSInteger width = AROUND_SPACING;
     CGFloat I = [self imageSize];
     for (NSInteger i = 0; i < [self maxNumberOfImages]; i++) {
-        if (i >= _images.count) {
+        if (i >= images.count) {
             break;
         }
         

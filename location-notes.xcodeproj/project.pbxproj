@@ -30,6 +30,7 @@
 		93A0E46F1B9FE57700C346EA /* DMImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A0E46D1B9FE57700C346EA /* DMImageDetailViewController.xib */; };
 		93C08B3B1BA58D3700C76F63 /* DMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C08B3A1BA58D3700C76F63 /* DMConstants.m */; };
 		93DDCBC01BC4F7CE00F8370B /* DMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDCBBF1BC4F7CE00F8370B /* DMImagePreviewView.m */; settings = {ASSET_TAGS = (); }; };
+		93E148401BC5BADA0083A5E7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E1483F1BC5BADA0083A5E7 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		93E435AC1B957D6A00927656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AB1B957D6A00927656 /* main.m */; };
 		93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AE1B957D6A00927656 /* AppDelegate.m */; };
 		93E435B71B957D6A00927656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E435B61B957D6A00927656 /* Images.xcassets */; };
@@ -91,6 +92,7 @@
 		93C08B3A1BA58D3700C76F63 /* DMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMConstants.m; sourceTree = "<group>"; };
 		93DDCBBE1BC4F7CE00F8370B /* DMImagePreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImagePreviewView.h; sourceTree = "<group>"; };
 		93DDCBBF1BC4F7CE00F8370B /* DMImagePreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePreviewView.m; sourceTree = "<group>"; };
+		93E1483F1BC5BADA0083A5E7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		93E435A61B957D6A00927656 /* location-notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "location-notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E435AA1B957D6A00927656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E435AB1B957D6A00927656 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				933AD1B31BA8DFF1003070ED /* DMSpinner.h */,
 				933AD1B41BA8DFF1003070ED /* DMSpinner.m */,
 				93E435B61B957D6A00927656 /* Images.xcassets */,
+				93E1483F1BC5BADA0083A5E7 /* Launch Screen.storyboard */,
 				93E435B81B957D6A00927656 /* LaunchScreen.xib */,
 				93E435A91B957D6A00927656 /* Supporting Files */,
 			);
@@ -384,6 +387,7 @@
 				93A0E46F1B9FE57700C346EA /* DMImageDetailViewController.xib in Resources */,
 				93E435DD1B95A65F00927656 /* Keys.plist in Resources */,
 				93E435BA1B957D6A00927656 /* LaunchScreen.xib in Resources */,
+				93E148401BC5BADA0083A5E7 /* Launch Screen.storyboard in Resources */,
 				93891D0E1B98F2C800D3CE64 /* DMAddNoteViewController.xib in Resources */,
 				9352698A1BA27CA50095F821 /* note.png in Resources */,
 				935269871BA26ED10095F821 /* DMNoteTableViewCell.xib in Resources */,
@@ -592,6 +596,7 @@
 			baseConfigurationReference = CBD68D13288CCE05058CD742 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -603,6 +608,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -611,6 +617,7 @@
 			baseConfigurationReference = E829E39A3F351AC86A9665AC /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -622,6 +629,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

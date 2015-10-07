@@ -23,16 +23,21 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    
-    self.previewView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, 55)];
-    self.previewView.spacing = 0;
-    [self addSubview:self.previewView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+// Need to put the custom view in here because otherwise the width won't be correctly set
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.previewView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.contentView.frame.size.width, 55)];
+    self.previewView.spacing = 0;
+    [self addSubview:self.previewView];
 }
 
 - (void)setLocation:(CLLocation *)location {
