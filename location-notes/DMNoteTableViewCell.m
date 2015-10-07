@@ -9,10 +9,13 @@
 #import <MapKit/MapKit.h>
 #import "DMNoteTableViewCell.h"
 #import "DMImageStore.h"
+#import "DMImagePreviewView.h"
 
 @interface DMNoteTableViewCell ()
 
 @property (nonatomic, strong) CLGeocoder *geocoder;
+@property (nonatomic, strong) DMImageStore *imageStore;
+@property (nonatomic, strong) DMImagePreviewView *previewView;
 
 @end
 
@@ -20,6 +23,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    self.previewView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, 55)];
+    self.previewView.spacing = 0;
+    [self addSubview:self.previewView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -49,8 +56,16 @@
     }];
 }
 
-- (void)setImageStore:(DMImageStore *)imageStore {
-    
+- (void)setNote:(PFObject *)note {
+    self.imageStore = [[DMImageStore alloc] initWithNote:note];
+    [self.imageStore loadImagesWithBlock:^(NSArray *images) {
+        NSMutableArray *imageArr = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < [self.imageStore imageCount]; i++) {
+            [imageArr addObject:[self.imageStore imageForIndex:i]];
+        }
+        
+        [self.previewView setImages:imageArr];
+    }];
 }
 
 @end

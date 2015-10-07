@@ -11,6 +11,7 @@
 #import "DMNotesTableViewController.h"
 #import "DMAddNoteViewController.h"
 #import "DMNoteTableViewCell.h"
+#import "DMImageStore.h"
 #import "DMConstants.h"
 
 static NSString *_cellIdentifier = @"NoteCell";
@@ -155,6 +156,7 @@ static NSString *_noteNibName = @"DMNoteTableViewCell";
     PFGeoPoint *locationPoint = [object objectForKey:@"location"];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:locationPoint.latitude longitude:locationPoint.longitude];
     cell.location = location;
+    cell.note = object;
     return cell;
 }
 

@@ -15,6 +15,7 @@
 @interface DMLocationMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, DMLocationSearchTableViewControllerDelegate> {
     CLLocationManager *locationManager;
     NSArray *annotations;
+    BOOL locationUpdating;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -53,6 +54,7 @@ static long const ZOOM_DISTANCE = 100;
     
     PFGeoPoint *locationObject = [self.note objectForKey:@"location"];
     if (locationObject == nil) {
+        locationUpdating = YES;
         locationManager = [[CLLocationManager alloc] init];
         locationManager.delegate = self;
         locationManager.distanceFilter = kCLDistanceFilterNone;
@@ -63,6 +65,7 @@ static long const ZOOM_DISTANCE = 100;
         }
         self.mapView.showsUserLocation = YES;
     } else {
+        locationUpdating = NO;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:locationObject.latitude longitude:locationObject.longitude];
         
         [self updateLocation:location.coordinate];
@@ -92,9 +95,8 @@ static long const ZOOM_DISTANCE = 100;
 #pragma mark MKMapViewDelegate methods
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    PFGeoPoint *locationObject = [self.note objectForKey:@"location"];
-    if (locationObject == nil) {
-        locationObject = [PFGeoPoint geoPointWithLatitude:userLocation.location.coordinate.latitude longitude:userLocation.location.coordinate.longitude];
+    if (locationUpdating) {
+        PFGeoPoint *locationObject = [PFGeoPoint geoPointWithLatitude:userLocation.location.coordinate.latitude longitude:userLocation.location.coordinate.longitude];
         [self.note setObject:locationObject forKey:@"location"];
         
         [self updateLocation:userLocation.location.coordinate];

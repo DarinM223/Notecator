@@ -11,6 +11,7 @@
 
 @class DMImageStore;
 @class CLLocation;
+@class DMImagePreviewView;
 
 @interface DMNoteTableViewCell : PFTableViewCell
 
@@ -18,6 +19,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *locationDescription;
 
 @property (nonatomic, strong) CLLocation *location;
-@property (nonatomic, strong) DMImageStore *imageStore;
+@property (nonatomic, getter=setNote) PFObject *note;
 
 @end
