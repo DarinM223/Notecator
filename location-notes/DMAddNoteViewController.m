@@ -168,6 +168,12 @@
         return;
     }
     
+    if ([self.noteText.text isEqualToString:noNoteText] || self.noteText.text.length == 0) {
+        UIAlertView *noNoteAlert = [[UIAlertView alloc] initWithTitle:@"Note text required" message:@"You need to fill in the note description" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [noNoteAlert show];
+        return;
+    }
+    
     if (spinner == nil) {
         spinner = [[DMSpinner alloc] initWithView:self.view color:[UIColor greenColor]];
     }
@@ -178,13 +184,8 @@
                 NSLog(@"Image saving error: %@", error.description);
             }
         } else {
-            if ([self.noteText.text isEqualToString:noNoteText] || self.noteText.text.length == 0) {
-                UIAlertView *noNoteAlert = [[UIAlertView alloc] initWithTitle:@"Note text required" message:@"You need to fill in the note description" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                [noNoteAlert show];
-            } else {
-                [self.note setObject:self.noteText.text forKey:@"note"];
-                [self.note saveInBackgroundWithTarget:self selector:@selector(onSavedNote:)];
-            }
+            [self.note setObject:self.noteText.text forKey:@"note"];
+            [self.note saveInBackgroundWithTarget:self selector:@selector(onSavedNote:)];
         }
     }];
 }

@@ -9,13 +9,16 @@
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
 #import "DMNotesMapViewController.h"
+#import "DMAddNoteViewController.h"
 #import "DMConstants.h"
 #import "DMNote.h"
 
-@interface DMNotesMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate> {
+@interface DMNotesMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, DMAddNoteViewControllerDelegate> {
     CLLocationManager *locationManager;
+    CLLocation *currentLocation;
     CLLocation *lastPulledLocation;
     NSMutableArray *annotations;
+    BOOL zoom;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -30,6 +33,7 @@ static long const ZOOM_DISTANCE = 100;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.tabBarItem.title = @"Map";
+        zoom = YES;
         
         CGRect rect = CGRectMake(0, 0, 40, 40);
         UIImage *i = [UIImage imageNamed:@"map"];
@@ -63,6 +67,9 @@ static long const ZOOM_DISTANCE = 100;
         [locationManager requestWhenInUseAuthorization];
     }
     self.mapView.showsUserLocation = YES;
+    
+    UIBarButtonItem *currentLocationButton = [[UIBarButtonItem alloc] initWithTitle:@"My Location" style:UIBarButtonItemStylePlain target:self action:@selector(currentLocationButtonClicked:)];
+    self.tabBarController.navigationItem.rightBarButtonItem = currentLocationButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,11 +102,22 @@ static long const ZOOM_DISTANCE = 100;
 #pragma mark MKMapViewDelegate methods
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    // Set location on map and zoom in
-    mapView.centerCoordinate = userLocation.coordinate;
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, ZOOM_DISTANCE, ZOOM_DISTANCE);
-    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-    [self.mapView setRegion:adjustedRegion];
+    if (userLocation == nil) {
+        return;
+    }
+    
+    // Set location on map and zoom in initially
+    if (zoom) {
+        mapView.centerCoordinate = userLocation.coordinate;
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, ZOOM_DISTANCE, ZOOM_DISTANCE);
+        MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+        [self.mapView setRegion:adjustedRegion];
+        
+        // Don't zoom after the first time
+        zoom = NO;
+    }
+    
+    currentLocation = userLocation.location;
     
     if (lastPulledLocation == nil) {
         lastPulledLocation = userLocation.location;
@@ -116,6 +134,59 @@ static long const ZOOM_DISTANCE = 100;
             [self pullNotesByCoordinate:userLocation.location.coordinate];
         }
     }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    
+    if ([annotation isKindOfClass:[DMNote class]]) {
+        static NSString * const reuseIdentifier = @"pin";
+        
+        MKPinAnnotationView *customPinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
+        if (customPinView == nil) {
+            customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+            customPinView.pinColor = MKPinAnnotationColorRed;
+            customPinView.canShowCallout = YES;
+            customPinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        } else {
+            customPinView.annotation = annotation;
+        }
+        
+        return customPinView;
+    }
+    
+    return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    DMNote *note = (DMNote *)view.annotation;
+
+    DMAddNoteViewController *editNoteController = [[DMAddNoteViewController alloc] initWithNote:note.object];
+    editNoteController.delegate = self;
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:editNoteController];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+#pragma mark -
+#pragma mark DMAddNoteViewControllerDelegate methods
+
+- (void)didDismissModalWindow {
+    if (currentLocation) {
+        [self pullNotesByCoordinate:currentLocation.coordinate];
+    }
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)currentLocationButtonClicked:(id)sender {
+    if (currentLocation == nil) {
+        return;
+    }
+    self.mapView.centerCoordinate = currentLocation.coordinate;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, ZOOM_DISTANCE, ZOOM_DISTANCE);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+    [self.mapView setRegion:adjustedRegion animated:YES];
 }
 
 /*

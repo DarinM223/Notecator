@@ -20,6 +20,7 @@
         PFGeoPoint *locationObject = [note objectForKey:@"location"];
         CLLocationCoordinate2D coordinate = [[CLLocation alloc] initWithLatitude:locationObject.latitude longitude:locationObject.longitude].coordinate;
         _coordinate = coordinate;
+        self.title = _note;
     }
     return self;
 }
@@ -30,6 +31,7 @@
     if (self) {
         _coordinate = coordinate;
         _note = note;
+        self.title = _note;
     }
     return self;
 }
@@ -50,6 +52,13 @@
     return ([otherNote.note isEqualToString:self.note] &&
             otherNote.coordinate.latitude == self.coordinate.latitude &&
             otherNote.coordinate.longitude == self.coordinate.longitude);
+}
+
+#pragma mark -
+#pragma mark MKAnnotation methods
+
+- (MKPinAnnotationColor)pinColor {
+    return MKPinAnnotationColorRed;
 }
 
 @end

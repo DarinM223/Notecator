@@ -18,6 +18,9 @@
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                            andNote:(NSString *)note;
 
+// Needed for MKAnnotation to display the title of the callout
+@property (nonatomic, copy) NSString *title;
+
 @property (nonatomic, assign, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy, readonly) NSString *note;
 
