@@ -19,6 +19,7 @@
 }
 
 @property (nonatomic, weak) IBOutlet UITextView *noteText;
+@property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, strong) DMImageStore *imageStore;
 
 @end
@@ -51,6 +52,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.toolbar.barTintColor = [UIColor colorWithRed:0.05 green:0.47 blue:0.91 alpha:1.0];
+    for (UIBarButtonItem *button in self.toolbar.items) {
+        [button setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+    }
+    
     self.noteText.layer.borderColor = [[UIColor blackColor] CGColor];
     self.noteText.layer.borderWidth = 1.0;
     self.noteText.scrollEnabled = NO;

@@ -33,8 +33,6 @@
 // Need to put the custom view in here because otherwise the width won't be correctly set
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-
 }
 
 - (void)setLocation:(CLLocation *)location {
