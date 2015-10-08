@@ -44,9 +44,7 @@ static CGFloat const AROUND_SPACING = 10.0;
 }
 
 - (void)setImages:(NSArray *)images {
-    _images = images;
-    
-    [self.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     NSInteger width = AROUND_SPACING;
     CGFloat I = [self imageSize];

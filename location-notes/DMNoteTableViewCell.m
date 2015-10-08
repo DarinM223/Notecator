@@ -14,7 +14,6 @@
 @interface DMNoteTableViewCell ()
 
 @property (nonatomic, strong) CLGeocoder *geocoder;
-@property (nonatomic, strong) DMImageStore *imageStore;
 @property (nonatomic, strong) DMImagePreviewView *previewView;
 
 @end
@@ -35,9 +34,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.previewView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.contentView.frame.size.width, 55)];
-    self.previewView.spacing = 0;
-    [self addSubview:self.previewView];
+
 }
 
 - (void)setLocation:(CLLocation *)location {
@@ -62,14 +59,22 @@
 }
 
 - (void)setNote:(PFObject *)note {
-    self.imageStore = [[DMImageStore alloc] initWithNote:note];
-    [self.imageStore loadImagesWithBlock:^(NSArray *images) {
+    
+    DMImageStore *imageStore = [[DMImageStore alloc] initWithNote:note];
+    
+    [imageStore loadImagesWithBlock:^(NSArray *errors) {
         NSMutableArray *imageArr = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < [self.imageStore imageCount]; i++) {
-            [imageArr addObject:[self.imageStore imageForIndex:i]];
+        for (NSInteger i = 0; i < [imageStore imageCount]; i++) {
+            [imageArr addObject:[imageStore imageForIndex:i]];
         }
         
+        if (self.previewView != nil) {
+            [self.previewView removeFromSuperview];
+        }
+        self.previewView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.contentView.frame.size.width, 55)];
+        self.previewView.spacing = 0;
         [self.previewView setImages:imageArr];
+        [self addSubview:self.previewView];
     }];
 }
 

@@ -11,6 +11,6 @@
 @interface DMImagePreviewView : UIView
 
 @property (nonatomic) CGFloat spacing;
-@property (nonatomic, weak) NSArray *images;
+@property (nonatomic, setter=setImages:) NSArray *images;
 
 @end
