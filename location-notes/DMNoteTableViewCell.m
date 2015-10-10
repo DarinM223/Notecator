@@ -7,6 +7,7 @@
 //
 
 #import <MapKit/MapKit.h>
+#import <PromiseKit/PromiseKit.h>
 #import "DMNoteTableViewCell.h"
 #import "DMImageStore.h"
 #import "DMImagePreviewView.h"
@@ -15,6 +16,7 @@
 
 @property (nonatomic, strong) CLGeocoder *geocoder;
 @property (nonatomic, strong) DMImagePreviewView *previewView;
+@property (nonatomic) NSInteger maxNumberOfImages;
 
 @end
 
@@ -22,6 +24,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.maxNumberOfImages = -1;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -33,6 +36,11 @@
 // Need to put the custom view in here because otherwise the width won't be correctly set
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    // Set the maximum number of images
+    DMImagePreviewView *tempView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.contentView.frame.size.width, 55)];
+    tempView.spacing = 0;
+    self.maxNumberOfImages = [tempView maxNumberOfImages];
 }
 
 - (void)setLocation:(CLLocation *)location {
@@ -57,22 +65,62 @@
 }
 
 - (void)setNote:(PFObject *)note {
+    if (self.maxNumberOfImages == -1) {
+        [self layoutSubviews];
+    }
     
-    DMImageStore *imageStore = [[DMImageStore alloc] initWithNote:note];
+    // Only download the images necessary to display the preview view
+    PFQuery *query = [PFQuery queryWithClassName:@"Image"];
+    [query whereKey:@"note" equalTo:note];
+    [query setLimit:self.maxNumberOfImages];
     
-    [imageStore loadImagesWithBlock:^(NSArray *errors) {
-        NSMutableArray *imageArr = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < [imageStore imageCount]; i++) {
-            [imageArr addObject:[imageStore imageForIndex:i]];
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+
+    [query findObjectsInBackgroundWithBlock:^(NSArray *imageObjects, NSError *error) {
+        if (error) {
+            NSLog(@"Error fetching images: %@", error);
+            return;
         }
         
-        if (self.previewView != nil) {
-            [self.previewView removeFromSuperview];
+        // Create image download promises
+        NSMutableArray *imageDownloadPromises = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < imageObjects.count; i++) {
+            // Encapsulate the integer i in a function scope
+            void (^wrappedFunction)(long) = ^void(long imageIndex) {
+                [imageDownloadPromises addObject:[AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+                    PFObject *imageObject = imageObjects[imageIndex];
+                    PFFile *imageFile = [imageObject objectForKey:@"image"];
+                    
+                    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                        if (!error) {
+                            UIImage *image = [UIImage imageWithData:data];
+                            [images addObject:image];
+                            
+                            resolve(nil);
+                        } else {
+                            resolve(error);
+                        }
+                    }];
+                }]];
+            };
+            wrappedFunction(i);
         }
-        self.previewView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.contentView.frame.size.width, 55)];
-        self.previewView.spacing = 0;
-        [self.previewView setImages:imageArr];
-        [self addSubview:self.previewView];
+        
+        PMKJoin(imageDownloadPromises).then(^(NSArray *results, NSArray *errors) {
+            if (errors.count != 0) {
+                NSLog(@"Errors: %@", errors);
+                return;
+            }
+            
+            if (self.previewView != nil) {
+                [self.previewView removeFromSuperview];
+            }
+            
+            self.previewView = [[DMImagePreviewView alloc] initWithFrame:CGRectMake(0, 20, self.contentView.frame.size.width, 55)];
+            self.previewView.spacing = 0;
+            [self.previewView setImages:images];
+            [self addSubview:self.previewView];
+        });
     }];
 }
 

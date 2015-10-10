@@ -10,6 +10,9 @@
 
 @interface DMImagePreviewView : UIView
 
+- (NSInteger)maxNumberOfImages;
+- (CGFloat)imageSize;
+
 @property (nonatomic) CGFloat spacing;
 @property (nonatomic, setter=setImages:) NSArray *images;
 
