@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+/*
+ Encapsulates the common task of creating a spinner when processing some asynchronous task to prevent 
+ the user from messing around with the UI during that time
+ */
+
 @class UIView;
 @class UIColor;
 

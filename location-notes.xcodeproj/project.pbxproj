@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9321A4B51BD4A36C00A4D48A /* DMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B41BD4A36C00A4D48A /* DMImageCache.m */; settings = {ASSET_TAGS = (); }; };
+		9321A4B81BD4A99000A4D48A /* DMKeyValueNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B71BD4A99000A4D48A /* DMKeyValueNode.m */; settings = {ASSET_TAGS = (); }; };
 		933146511BAB305E00AEBD4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331464E1BAB305E00AEBD4E /* FBSDKCoreKit.framework */; };
 		933146521BAB305E00AEBD4E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331464F1BAB305E00AEBD4E /* FBSDKLoginKit.framework */; };
 		933146531BAB305E00AEBD4E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 933146501BAB305E00AEBD4E /* FBSDKShareKit.framework */; };
@@ -57,6 +59,10 @@
 
 /* Begin PBXFileReference section */
 		0AAF2ACEEDF3FD37DC404120 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9321A4B31BD4A36C00A4D48A /* DMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageCache.h; sourceTree = "<group>"; };
+		9321A4B41BD4A36C00A4D48A /* DMImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageCache.m; sourceTree = "<group>"; };
+		9321A4B61BD4A99000A4D48A /* DMKeyValueNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMKeyValueNode.h; sourceTree = "<group>"; };
+		9321A4B71BD4A99000A4D48A /* DMKeyValueNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMKeyValueNode.m; sourceTree = "<group>"; };
 		9331464E1BAB305E00AEBD4E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		9331464F1BAB305E00AEBD4E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		933146501BAB305E00AEBD4E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKShareKit.framework"; sourceTree = "<group>"; };
@@ -209,6 +215,10 @@
 				93E435CF1B957EDD00927656 /* Controllers */,
 				93E435AD1B957D6A00927656 /* AppDelegate.h */,
 				93E435AE1B957D6A00927656 /* AppDelegate.m */,
+				9321A4B61BD4A99000A4D48A /* DMKeyValueNode.h */,
+				9321A4B71BD4A99000A4D48A /* DMKeyValueNode.m */,
+				9321A4B31BD4A36C00A4D48A /* DMImageCache.h */,
+				9321A4B41BD4A36C00A4D48A /* DMImageCache.m */,
 				93C08B391BA58D1B00C76F63 /* DMConstants.h */,
 				93C08B3A1BA58D3700C76F63 /* DMConstants.m */,
 				933AD1B31BA8DFF1003070ED /* DMSpinner.h */,
@@ -461,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9321A4B81BD4A99000A4D48A /* DMKeyValueNode.m in Sources */,
 				93A0E46E1B9FE57700C346EA /* DMImageDetailViewController.m in Sources */,
 				9387A79F1B9A6B8000E562C4 /* DMImageCollectionViewCell.m in Sources */,
 				935269861BA26ED10095F821 /* DMNoteTableViewCell.m in Sources */,
@@ -478,6 +489,7 @@
 				93A0E4671B9F8FD500C346EA /* DMLocationSearchTableViewController.m in Sources */,
 				93C08B3B1BA58D3700C76F63 /* DMConstants.m in Sources */,
 				93891D0D1B98F2C800D3CE64 /* DMAddNoteViewController.m in Sources */,
+				9321A4B51BD4A36C00A4D48A /* DMImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

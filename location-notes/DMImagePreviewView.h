@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+/*
+ Custom view that shows some preview images in the table view cell in a line
+ Width calculated so that it can resize itself to differently sized devices
+ */
+
 @interface DMImagePreviewView : UIView
 
 - (NSInteger)maxNumberOfImages;

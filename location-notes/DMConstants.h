@@ -9,6 +9,10 @@
 #ifndef location_notes_DMConstants_h
 #define location_notes_DMConstants_h
 
+/*
+ A collection of constants used for various configuration settings
+ */
+
 // Maximum distance in kilometers before repulling objects
 extern double const MAX_PULL_DISTANCE;
 
