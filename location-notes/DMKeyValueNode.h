@@ -12,7 +12,7 @@
  A key/value node for a doubly-linked-list used for the LRU Cache implementation of DMImageCache
  */
 
-@interface DMKeyValueNode : NSObject
+@interface DMKeyValueNode : NSObject <NSCoding>
 
 - (instancetype)initWithKey:(NSString *)key
                    andValue:(NSObject *)value;

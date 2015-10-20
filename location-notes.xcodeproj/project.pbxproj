@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930DC5171BD5CEDE009177E9 /* DMImageCacheEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 930DC5161BD5CEDE009177E9 /* DMImageCacheEncoder.m */; settings = {ASSET_TAGS = (); }; };
 		9321A4B51BD4A36C00A4D48A /* DMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B41BD4A36C00A4D48A /* DMImageCache.m */; settings = {ASSET_TAGS = (); }; };
 		9321A4B81BD4A99000A4D48A /* DMKeyValueNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B71BD4A99000A4D48A /* DMKeyValueNode.m */; settings = {ASSET_TAGS = (); }; };
 		933146511BAB305E00AEBD4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331464E1BAB305E00AEBD4E /* FBSDKCoreKit.framework */; };
@@ -59,6 +60,8 @@
 
 /* Begin PBXFileReference section */
 		0AAF2ACEEDF3FD37DC404120 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		930DC5151BD5CEDE009177E9 /* DMImageCacheEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageCacheEncoder.h; sourceTree = "<group>"; };
+		930DC5161BD5CEDE009177E9 /* DMImageCacheEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageCacheEncoder.m; sourceTree = "<group>"; };
 		9321A4B31BD4A36C00A4D48A /* DMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageCache.h; sourceTree = "<group>"; };
 		9321A4B41BD4A36C00A4D48A /* DMImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageCache.m; sourceTree = "<group>"; };
 		9321A4B61BD4A99000A4D48A /* DMKeyValueNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMKeyValueNode.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				93E435AD1B957D6A00927656 /* AppDelegate.h */,
 				93E435AE1B957D6A00927656 /* AppDelegate.m */,
 				9321A4B61BD4A99000A4D48A /* DMKeyValueNode.h */,
+				930DC5151BD5CEDE009177E9 /* DMImageCacheEncoder.h */,
+				930DC5161BD5CEDE009177E9 /* DMImageCacheEncoder.m */,
 				9321A4B71BD4A99000A4D48A /* DMKeyValueNode.m */,
 				9321A4B31BD4A36C00A4D48A /* DMImageCache.h */,
 				9321A4B41BD4A36C00A4D48A /* DMImageCache.m */,
@@ -471,6 +476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				930DC5171BD5CEDE009177E9 /* DMImageCacheEncoder.m in Sources */,
 				9321A4B81BD4A99000A4D48A /* DMKeyValueNode.m in Sources */,
 				93A0E46E1B9FE57700C346EA /* DMImageDetailViewController.m in Sources */,
 				9387A79F1B9A6B8000E562C4 /* DMImageCollectionViewCell.m in Sources */,

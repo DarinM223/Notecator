@@ -8,6 +8,7 @@
 
 #import "DMImageCache.h"
 #import "DMKeyValueNode.h"
+#import "DMImageCacheEncoder.h"
 
 @interface DMImageCache ()
 
@@ -21,6 +22,7 @@
 @implementation DMImageCache
 
 static long const maxNumImages = 50;
+static NSString* const archiveFile = @"cache.archive";
 
 // Don't use constructor since it is a singleton
 - (instancetype)init {
@@ -31,10 +33,24 @@ static long const maxNumImages = 50;
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        self.hashMap = [[NSDictionary alloc] init];
-        self.count = 0;
-        self.front = nil;
-        self.rear = nil;
+        DMImageCacheEncoder *encoder = [NSKeyedUnarchiver unarchiveObjectWithFile:[self archivePath]];
+        if (!encoder) {
+            self.hashMap = [[NSDictionary alloc] init];
+            self.count = 0;
+            self.front = nil;
+            self.rear = nil;
+        } else {
+            self.count = encoder.count;
+            self.rear = encoder.rear;
+            
+            DMKeyValueNode *counter = self.rear;
+            while (counter.next != nil) {
+                [self.hashMap setValue:counter forKey:counter.key];
+                counter = counter.next;
+            }
+            self.front = counter;
+            [self.hashMap setValue:counter forKey:counter.key];
+        }
     }
     return self;
 }
@@ -47,6 +63,18 @@ static long const maxNumImages = 50;
         sharedCache = [[DMImageCache alloc] initPrivate];
     });
     return sharedCache;
+}
+
+- (NSString *)archivePath {
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [documentDirectories firstObject];
+    
+    return [documentDirectory stringByAppendingPathComponent:archiveFile];
+}
+
+- (void)saveChanges {
+    DMImageCacheEncoder *encoder = [[DMImageCacheEncoder alloc] initWithRearNode:self.rear count:self.count];
+    [NSKeyedArchiver archiveRootObject:encoder toFile:[self archivePath]];
 }
 
 // Helper function for removing a node from the queue
