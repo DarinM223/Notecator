@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import <PromiseKit/PromiseKit.h>
 #import "DMImageStore.h"
+#import "DMImageCache.h"
 
 @interface DMImageStore ()
 
@@ -63,19 +64,30 @@
         void (^wrappedFunction)(long) = ^void(long imageIndex) {
             [imageDownloadPromises addObject:[AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
                 PFObject *imageObject = self.images[imageIndex];
-                PFFile *imageFile = [imageObject objectForKey:@"image"];
                 
-                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (!error) {
-                        UIImage *image = [UIImage imageWithData:data];
+                // check cache for image
+                UIImage *cachedImage = [[DMImageCache sharedCache] imageForObjectId:imageObject.objectId];
+                if (cachedImage == nil) {
+                    // download manually if not in cache
+                    PFFile *imageFile = [imageObject objectForKey:@"image"];
+                
+                    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                        if (!error) {
+                            UIImage *image = [UIImage imageWithData:data];
                         
-                        // set image in dictionary
-                        [self.objectToImage setObject:image forKey:imageObject.objectId];
-                        resolve(image);
-                    } else {
-                        [self performSelector:@selector(populateImageDictionaryWithBlock:) withObject:block afterDelay:0];
-                    }
-                }];
+                            // set image in dictionary
+                            [self.objectToImage setObject:image forKey:imageObject.objectId];
+                            // save image in cache
+                            [[DMImageCache sharedCache] setImage:image forObjectId:imageObject.objectId];
+                            resolve(image);
+                        } else {
+                            [self performSelector:@selector(populateImageDictionaryWithBlock:) withObject:block afterDelay:0];
+                        }
+                    }];
+                } else {
+                    [self.objectToImage setObject:cachedImage forKey:imageObject.objectId];
+                    resolve(cachedImage);
+                }
             }]];
         };
         wrappedFunction(i);

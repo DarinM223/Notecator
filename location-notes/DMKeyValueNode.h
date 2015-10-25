@@ -18,7 +18,7 @@
                    andValue:(NSObject *)value;
 
 @property (nonatomic, copy) NSString *key;
-@property (nonatomic, weak) NSObject *value;
+@property (nonatomic, strong) NSObject *value;
 
 @property (nonatomic, weak) DMKeyValueNode *next;
 @property (nonatomic, weak) DMKeyValueNode *prev;

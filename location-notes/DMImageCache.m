@@ -13,7 +13,7 @@
 @interface DMImageCache ()
 
 @property (nonatomic) NSInteger count;
-@property (nonatomic, strong) NSDictionary *hashMap;
+@property (nonatomic, strong) NSMutableDictionary *hashMap;
 @property (nonatomic, strong) DMKeyValueNode *front;
 @property (nonatomic, strong) DMKeyValueNode *rear;
 
@@ -35,7 +35,7 @@ static NSString* const archiveFile = @"cache.archive";
     if (self) {
         DMImageCacheEncoder *encoder = [NSKeyedUnarchiver unarchiveObjectWithFile:[self archivePath]];
         if (!encoder) {
-            self.hashMap = [[NSDictionary alloc] init];
+            self.hashMap = [[NSMutableDictionary alloc] init];
             self.count = 0;
             self.front = nil;
             self.rear = nil;

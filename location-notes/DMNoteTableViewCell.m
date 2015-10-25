@@ -11,6 +11,7 @@
 #import "DMNoteTableViewCell.h"
 #import "DMImageStore.h"
 #import "DMImagePreviewView.h"
+#import "DMImageCache.h"
 
 @interface DMNoteTableViewCell ()
 
@@ -89,18 +90,29 @@
             void (^wrappedFunction)(long) = ^void(long imageIndex) {
                 [imageDownloadPromises addObject:[AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
                     PFObject *imageObject = imageObjects[imageIndex];
-                    PFFile *imageFile = [imageObject objectForKey:@"image"];
-                    
-                    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                        if (!error) {
-                            UIImage *image = [UIImage imageWithData:data];
-                            [images addObject:image];
-                            
-                            resolve(nil);
-                        } else {
-                            resolve(error);
-                        }
-                    }];
+                    // check cache for image
+                    UIImage *cachedImage = [[DMImageCache sharedCache] imageForObjectId:imageObject.objectId];
+                    if (cachedImage == nil) {
+                        // download manually if not in cache
+                        PFFile *imageFile = [imageObject objectForKey:@"image"];
+                        
+                        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                            if (!error) {
+                                UIImage *image = [UIImage imageWithData:data];
+                                [images addObject:image];
+                                
+                                // save image in cache
+                                [[DMImageCache sharedCache] setImage:image forObjectId:imageObject.objectId];
+                                
+                                resolve(nil);
+                            } else {
+                                resolve(error);
+                            }
+                        }];
+                    } else {
+                        [images addObject:cachedImage];
+                        resolve(nil);
+                    }
                 }]];
             };
             wrappedFunction(i);

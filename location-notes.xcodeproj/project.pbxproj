@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		930DC5171BD5CEDE009177E9 /* DMImageCacheEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 930DC5161BD5CEDE009177E9 /* DMImageCacheEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		9321A4B51BD4A36C00A4D48A /* DMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B41BD4A36C00A4D48A /* DMImageCache.m */; settings = {ASSET_TAGS = (); }; };
-		9321A4B81BD4A99000A4D48A /* DMKeyValueNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B71BD4A99000A4D48A /* DMKeyValueNode.m */; settings = {ASSET_TAGS = (); }; };
+		930DC5171BD5CEDE009177E9 /* DMImageCacheEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 930DC5161BD5CEDE009177E9 /* DMImageCacheEncoder.m */; };
+		9321A4B51BD4A36C00A4D48A /* DMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B41BD4A36C00A4D48A /* DMImageCache.m */; };
+		9321A4B81BD4A99000A4D48A /* DMKeyValueNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321A4B71BD4A99000A4D48A /* DMKeyValueNode.m */; };
 		933146511BAB305E00AEBD4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331464E1BAB305E00AEBD4E /* FBSDKCoreKit.framework */; };
 		933146521BAB305E00AEBD4E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331464F1BAB305E00AEBD4E /* FBSDKLoginKit.framework */; };
 		933146531BAB305E00AEBD4E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 933146501BAB305E00AEBD4E /* FBSDKShareKit.framework */; };
@@ -32,8 +32,8 @@
 		93A0E46E1B9FE57700C346EA /* DMImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0E46C1B9FE57700C346EA /* DMImageDetailViewController.m */; };
 		93A0E46F1B9FE57700C346EA /* DMImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A0E46D1B9FE57700C346EA /* DMImageDetailViewController.xib */; };
 		93C08B3B1BA58D3700C76F63 /* DMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C08B3A1BA58D3700C76F63 /* DMConstants.m */; };
-		93DDCBC01BC4F7CE00F8370B /* DMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDCBBF1BC4F7CE00F8370B /* DMImagePreviewView.m */; settings = {ASSET_TAGS = (); }; };
-		93E148401BC5BADA0083A5E7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E1483F1BC5BADA0083A5E7 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		93DDCBC01BC4F7CE00F8370B /* DMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDCBBF1BC4F7CE00F8370B /* DMImagePreviewView.m */; };
+		93E148401BC5BADA0083A5E7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E1483F1BC5BADA0083A5E7 /* Launch Screen.storyboard */; };
 		93E435AC1B957D6A00927656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AB1B957D6A00927656 /* main.m */; };
 		93E435AF1B957D6A00927656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E435AE1B957D6A00927656 /* AppDelegate.m */; };
 		93E435B71B957D6A00927656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E435B61B957D6A00927656 /* Images.xcassets */; };
@@ -549,6 +549,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -592,6 +593,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -617,6 +619,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -638,6 +641,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

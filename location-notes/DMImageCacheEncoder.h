@@ -15,7 +15,7 @@
 - (instancetype)initWithRearNode:(DMKeyValueNode *)rear
                            count:(NSInteger)count;
 
-@property (nonatomic, weak) DMKeyValueNode *rear;
+@property (nonatomic, strong) DMKeyValueNode *rear;
 @property (nonatomic) NSInteger count;
 
 @end
